@@ -17,7 +17,7 @@ function App() {
 
             </Route>
             <Route path="/">
-                <Pregunta />
+
             </Route>
           </Switch>
       </div>
