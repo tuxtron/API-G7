@@ -104,7 +104,7 @@ function Pregunta(props) {
     return (
         <div className="pregunta">
             <div className="pregunta__header">
-                <p className="pregunta__numero">Pregunta {props.id + 1}</p>
+                <p className="pregunta__numero">Pregunta {props.id}</p>
                 <p className="pregunta__enRevision">
                     {
                         aprobada 
