@@ -1,0 +1,32 @@
+.nav_empresa{
+    text-align: left;
+    font: normal normal bold 31px/40px Centra No2;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+
+.nav_id{
+    text-align: left;
+    font: normal normal normal 21px/27px Centra No2;
+    letter-spacing: 0px;
+    color: #000000BF;
+    opacity: 1;
+}
+.nav_encuesta{
+    text-align: left;
+    font: normal normal normal 21px/27px Centra No2;
+    letter-spacing: 0px;
+    color: #000000BF;
+    opacity: 1;
+
+}
+
+.nav_fecha{
+    text-align: left;
+    font: normal normal normal 21px/27px Centra No2;
+    letter-spacing: 0px;
+    color: #000000BF;
+    opacity: 1;
+
+}
