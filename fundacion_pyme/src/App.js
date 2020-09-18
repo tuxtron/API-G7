@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Pregunta from './Components/Pregunta';
+import Tabla from './Components/Tabla';
 
 
 function App() {
@@ -13,10 +14,13 @@ function App() {
             <Route path="/login"> 
             
             </Route>
-            <Route path="/detalle">
-
+            <Route path="/home"> 
+         
             </Route>
-            <Route path="/">
+            <Route path="/detalle">
+              <Tabla />
+            </Route>
+            <Route path="/pregunta">
                 {/* Esta parte deberia ser dinamica pasando los parametros correspondientes, 
                   despues cuando tengamos bien como vendria los datos desde BD ajustamos los parametros 
                   de componente sin problema */}
