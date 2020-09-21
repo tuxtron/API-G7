@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Pregunta from './Components/Pregunta';
 import NavCuestionario from './Components/NavCuestionario';
+import Tabla from './Components/Tabla';
 import listaDePreguntas from './listaDePreguntas.json';
 
 function App() {
@@ -13,6 +14,9 @@ function App() {
           <Switch>
             <Route path="/login"> 
             
+            </Route>
+            <Route path="/home"> 
+                <Tabla/>
             </Route>
             <Route path="/detalle">
                {
