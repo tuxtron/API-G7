@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Pregunta from './Components/Pregunta';
+import NavCuestionario from './Components/NavCuestionario';
 import listaDePreguntas from './listaDePreguntas.json';
-
 
 function App() {
 
@@ -28,8 +28,8 @@ function App() {
                   })
                 }
             </Route>
-            <Route path="/">
-              
+            <Route path="/pepe">
+              <NavCuestionario/>
             </Route>
           </Switch>
       </div>
