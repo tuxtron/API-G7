@@ -16,19 +16,8 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-<<<<<<< HEAD
-    "reactstrap": "^8.6.0"
-=======
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-    "reactstrap": "^8.6.0"
-=======
+    "reactstrap": "^8.6.0",
     "yup": "^0.29.3"
->>>>>>> 2af45cf129011d890d4876983a54548835736fe6
-=======
-    "yup": "^0.29.3"
->>>>>>> Stashed changes
->>>>>>> 0aa616431c644b2c0447320d596463d6ea1e9d76
   },
   "scripts": {
     "start": "react-scripts start",
