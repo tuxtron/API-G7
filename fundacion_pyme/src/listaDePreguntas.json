@@ -1,0 +1,62 @@
+[
+    {
+        "id":1,
+        "tipo":"texto",
+        "pregunta":"Como te llamas?",
+        "respuesta":"Me llamo respuesta de la pregunta 1",
+        "aprobada":false
+    },
+    {
+        "id":2,
+        "tipo":"numerica",
+        "pregunta":"Cuantos años tenes?",
+        "respuesta":24,
+        "aprobada":false
+    },
+    {
+        "id":3,
+        "tipo":"choice",
+        "pregunta":"Qué gaseosa te gusta más?",
+        "posiblesResultados":["Coca Cola", "Pepsi", "Sprite", "Mirinda de Manzana"],
+        "respuesta":0,
+        "aprobada":false
+    },
+    {
+        "id":4,
+        "tipo":"desplegable",
+        "pregunta":"Qué tipo de transporte usas para viajar a la facultad?",
+        "posiblesResultados":["Caminando", "Colectivo", "Subte", "Tren", "Bicicleta"],
+        "respuesta":1,
+        "aprobada":false
+    },
+    {
+        "id":5,
+        "tipo":"texto",
+        "pregunta":"Como te llamas?",
+        "respuesta":"Me llamo respuesta de la pregunta 1",
+        "aprobada":true
+    },
+    {
+        "id":6,
+        "tipo":"numerica",
+        "pregunta":"Cuantos años tenes?",
+        "respuesta":24,
+        "aprobada":true
+    },
+    {
+        "id":7,
+        "tipo":"choice",
+        "pregunta":"Qué gaseosa te gusta más?",
+        "posiblesResultados":["Coca Cola", "Pepsi", "Sprite", "Mirinda de Manzana"],
+        "respuesta":0,
+        "aprobada":true
+    },
+    {
+        "id":8,
+        "tipo":"desplegable",
+        "pregunta":"Qué tipo de transporte usas para viajar a la facultad?",
+        "posiblesResultados":["Caminando", "Colectivo", "Subte", "Tren", "Bicicleta"],
+        "respuesta":1,
+        "aprobada":true
+    }
+]
