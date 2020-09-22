@@ -1,6 +1,6 @@
 import react from 'react';
 import React, { useState } from 'react';
-import { Button } from 'reactstrap';
+import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal';
 import './Modal.css';
