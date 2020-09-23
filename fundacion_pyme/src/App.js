@@ -32,7 +32,7 @@ function App() {
                   })
                 }
             </Route>
-            <Route path="/pepe">
+            <Route path="/nav">
               <NavCuestionario/>
             </Route>
           </Switch>
