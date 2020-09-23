@@ -6,10 +6,8 @@ import NavCuestionario from './Components/NavCuestionario';
 import Tabla from './Components/Tabla';
 import listaDePreguntas from './listaDePreguntas.json';
 import ModalEjemplo from './Components/Modal';
-import listaDePreguntas from './listaDePreguntas.json';
 // import "./styles.css";
 import Login from './Components/login'
-import Tabla from './Components/Tabla'
 
 function App() {
 
