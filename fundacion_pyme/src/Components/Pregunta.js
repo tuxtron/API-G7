@@ -11,8 +11,9 @@ function Pregunta(props) {
 
     const [state, setState] = useState({
         isSupervisor: props.isSupervisor,
-        aprobada: pregunta.aprobada,
+        aprobada: pregunta.aprobada,  // aprobada = false => En Revisión
         checked: pregunta.checked,
+        validada: false,
     })
 
     const revisarBtnClicked = () => {
@@ -24,7 +25,7 @@ function Pregunta(props) {
     }
 
     const validarBtnClicked = () => {
-        //back
+        setState({...state, validada:true});
     }
 
     const getResultByType = () => {
@@ -135,7 +136,7 @@ function Pregunta(props) {
                             :
                             <>
                             <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
-                            En revisión
+                                En revisión
                             </>
                     }
                 </p>
@@ -149,7 +150,7 @@ function Pregunta(props) {
             }
             <div className="pregunta__respuestaGeneral">
                 {   getResultByType()    }
-                {   state.checked && !state.aprobada ? <textarea className="pregunta__observacionContainer" /> : null  }
+        {   state.checked && !state.aprobada ? <textarea className="pregunta__observacionContainer" >{ pregunta.observacion }</textarea> : null  }
             </div>
             <div className={ !state.checked || (state.checked && state.aprobada) ? "pregunta__btnSectionAprobado" : "pregunta__btnSectionEnRevision"} >
                 <button className="pregunta__btnRevisar" onClick={revisarBtnClicked} >Revisar</button>
@@ -166,7 +167,7 @@ function Pregunta(props) {
                 <p className="pregunta__numero">Pregunta {pregunta.id}</p>
                 <p className="pregunta__enRevision">
                     <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
-                    En revisión
+                    { state.validada ? "Validada" : "En revisión" }
                 </p>
             </div>
             <div className="pregunta__descripcionContainer">
