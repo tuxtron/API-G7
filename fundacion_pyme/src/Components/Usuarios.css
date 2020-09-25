@@ -1,0 +1,35 @@
+.pregunta__btnAprobar {
+    width: auto;
+    height: 34px;
+    background: #5CB85C 0% 0% no-repeat padding-box;
+    border: 1px solid #5CB85C !important;
+    border-radius: 4px;
+    opacity: 1;
+    color: #fff;
+    border: none;
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none !important;
+}
+
+.pregunta__btnAprobar:hover {
+    color: #5CB85C;
+    background-color: #fff;
+}
+
+.survey-table > tr > td {
+    margin-bottom: 0 !important;
+}
+
+.modal__eliminarBtn {
+    background-color: red;
+    border: 1px solid red;
+    color: #fff;
+  }
+  
+.modal__eliminarBtn:hover {
+    border: 1px solid red;
+    background-color: #fff;
+    color: red;
+}

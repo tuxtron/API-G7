@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import encuestas from '../data-table.json'
 import eye from './images/eye-solid.svg'
 import { Link } from 'react-router-dom'
+// import SearchIcon from '@material-ui/icons/Search';
 
 
 
@@ -12,7 +13,13 @@ import { Link } from 'react-router-dom'
 const Tabla =()=>{
     return(
         <div className="table">
-        <p className="table-title">Listado de Encuestas</p>
+            <p className="table-title">Listado de Encuestas</p>
+            {/* <div style={{display:'flex', marginBottom:'30px'}}>
+            <input type="text" placeholder="buscar encuesta" style={{padding:'8px 10px'}}/>
+            <Link>
+                <SearchIcon fontSize="large" style={{color:'black'}}/>
+            </Link>
+            </div> */}
         <Table  borderless hover responsive>
         <thead class="survey-table" style={{borderBottom: '1px solid #42526E', textAlign:'center'}}>
             <tr>
