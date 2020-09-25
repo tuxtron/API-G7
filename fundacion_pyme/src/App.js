@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Pregunta from './Components/Pregunta';
 import NavCuestionario from './Components/NavCuestionario';
 import Tabla from './Components/Tabla';
+import Sidebar from './Components/Sidebar';
 import listaDePreguntas from './listaDePreguntas.json';
 import ModalEjemplo from './Components/Modal';
-// import "./styles.css";
 import Login from './Components/login'
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
           <div className="App">
           <Switch>
               <Route path="/home"> 
+                  <Sidebar />
                   <Tabla/>
               </Route>
               <Route path="/detalle">
