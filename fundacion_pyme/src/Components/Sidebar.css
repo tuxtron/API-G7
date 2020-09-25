@@ -6,10 +6,11 @@
     width: 121px;
     height: 34px;
     text-align: left;
-    font: normal normal bold 13px/17px Centra No2;
+    font: normal normal bold 12px/17px Centra No2;
     letter-spacing: 0px;
     color: #42526E;
     opacity: 1;
+    margin-left: 10px;
 }
 .sidebar-text {
 
@@ -17,24 +18,25 @@
     letter-spacing: 0px;
     color: #42526E;
     opacity: 1;
+    margin-left: 23px;
+    margin-bottom: 0;
 }
 
 .location-text{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: left;
+    margin-top: 100px;
+    text-decoration: none !important;
 }
 .sidebar-logoff {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: left;
     font: normal normal bold 22px/29px Centra No2;
     letter-spacing: 0px;
     color: #D16969;
     opacity: 1;
-
+    margin-left: 23px;
+    margin-bottom: 0;
 }
 
 .solid.list{
@@ -65,6 +67,7 @@
     left: 0px;
     width: 292px;
     height: 1080px;
+    padding: 65px 41px;
     background: #0000000A 0% 0% no-repeat padding-box;
     box-shadow: 1px 3px 6px #00000058;
     opacity: 1;
@@ -80,5 +83,15 @@
     background: #0000000A 0% 0% no-repeat padding-box;
     box-shadow: 1px 3px 6px #00000058;
     opacity: 1;
+}
+
+.signOutBtn {
+    display:flex; 
+    align-items: center;
+    text-decoration: none !important;
+}
+
+.signOutBtn:hover {
+    color: red !important;
 }
 
