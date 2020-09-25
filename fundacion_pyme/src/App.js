@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Pregunta from './Components/Pregunta';
-import ModalEjemplo from './Components/Modal';
+import NavCuestionario from './Components/NavCuestionario';
+import Tabla from './Components/Tabla';
 import listaDePreguntas from './listaDePreguntas.json';
+import ModalEjemplo from './Components/Modal';
 // import "./styles.css";
 import Login from './Components/login'
-import Tabla from './Components/Tabla'
 
 function App() {
 
@@ -31,7 +32,11 @@ function App() {
                                     isSupervisor={state.isSupervisor} />
                     })
                 }
-              </Route>
+            </Route>
+            <Route path="/nav">
+              <NavCuestionario 
+                isSupervisor={state.isSupervisor}>Preguntas</NavCuestionario>
+            </Route>
               <Route path="/"> 
                  <Login />
               </Route>
