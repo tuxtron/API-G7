@@ -10,7 +10,10 @@ import { Button , ButtonToolbar} from 'react-bootstrap';
 export class NavCuestionario extends Component {
   constructor(props){
     super(props);
-    this.state = {addModalShow : false}
+    this.state = {
+      addModalShow : false,
+      modalType: "",
+    }
 }
 
   render() {
@@ -37,31 +40,28 @@ export class NavCuestionario extends Component {
         <div className="nav_accept_button">
         {  this.props.isSupervisor ? 
           <> 
-          <ButtonToolbar>
-            <Button 
-            className="nav_rechazarBtn"
-            onClick={()=> this.setState({addModalShow : true})}
-            >Rechazar Encuesta
-            </Button>
-          </ButtonToolbar>
-          <ModalEjemplo
-          show = {this.state.addModalShow}
-          onHide = {addModalClose}
-          />
-          <ButtonToolbar>
-            <Button 
-            className="nav_aprobarBtn"
-            onClick={()=> this.setState({addModalShow : true})}
-            >Aprobar Encuesta
-            </Button>
-          </ButtonToolbar>
-          <ModalEjemplo
-          show = {this.state.addModalShow}
-          onHide = {addModalClose}
-          />
-
+              <Button 
+                  className="nav_rechazarBtn"
+                  onClick={()=> this.setState({addModalShow : true, modalType:"Rechazar"})}
+                  >Rechazar Encuesta
+              </Button>
+              <Button 
+                  className="nav_aprobarBtn"
+                  onClick={()=> this.setState({addModalShow : true, modalType:"Aprobar"})}
+                  >Aprobar Encuesta
+              </Button>
+              <ModalEjemplo
+                  show = {this.state.addModalShow}
+                  onHide = {addModalClose}
+                  modalType = {this.state.modalType}
+              />
+            {/* <ModalEjemplo
+            show = {this.state.addModalShow}
+            onHide = {addModalClose}
+            /> */}
           </> 
-          : <Link  to="/home" className="nav_enviarValidacionBtn">Enviar Validacion</Link>
+          : 
+          <Link  to="/home" className="nav_enviarValidacionBtn">Enviar Validacion</Link>
         }
         </div>
         </>

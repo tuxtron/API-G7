@@ -1,6 +1,9 @@
 .modal {
-  margin: 10px 20px 20px 20px;
   width: 580px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .modal__header{
@@ -8,3 +11,28 @@
   flex-direction: row;
 }
 
+.modal__bodyText {
+  font-weight: bold;
+}
+
+.modal__guardarCambioBtn {
+  background-color: #1C7CD5;
+  color: #fff;
+}
+
+.modal__guardarCambioBtn:hover {
+  background-color: #fff;
+  color: #1C7CD5;
+}
+
+.modal__cancelarBtn {
+  border: 1px gray solid;
+  background-color: #fff;
+  color: gray;
+}
+
+.modal__cancelarBtn:hover {
+  border: 1px black solid;
+  background-color: #fff;
+  color: black;
+}

@@ -33,8 +33,8 @@
 }
 
 .nav_aprobarBtn {
-    background: #5CB85C 0% 0% no-repeat padding-box;
-    border: 1px solid #5CB85C;
+    background: #5CB85C 0% 0% no-repeat padding-box !important;
+    border: 1px solid #5CB85C !important;
     border-radius: 4px;
     opacity: 1;
     padding: 10px 15px;
@@ -44,8 +44,8 @@
 }
 
 .nav_rechazarBtn {
-    background: #E54F4F 0% 0% no-repeat padding-box;
-    border: 1px solid #E54F4F;
+    background: #E54F4F 0% 0% no-repeat padding-box !important;
+    border: 1px solid #E54F4F !important;
     border-radius: 4px;
     color: #fff;
     padding: 10px 15px;
@@ -65,15 +65,15 @@
 
 .nav_enviarValidacionBtn:hover {
     color: #5CB85C;
-    background-color: #fff;
+    background-color: #fff ;
 }
 
 .nav_aprobarBtn:hover {
-    color: #5CB85C;
-    background-color: #fff;
+    color: #5CB85C !important;
+    background-color: #fff !important;
 }
 
 .nav_rechazarBtn:hover {
-    color: #E54F4F;
-    background-color: #fff;
+    color: #E54F4F !important; 
+    background-color: #fff !important;
 }
