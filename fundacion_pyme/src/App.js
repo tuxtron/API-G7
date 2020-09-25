@@ -12,7 +12,7 @@ import Login from './Components/login'
 function App() {
 
   const [state, setState] = useState({
-      isSupervisor:false,
+      isSupervisor:true,
   });
 
 
@@ -34,7 +34,8 @@ function App() {
                 }
             </Route>
             <Route path="/nav">
-              <NavCuestionario/>
+              <NavCuestionario 
+                isSupervisor={state.isSupervisor}>Preguntas</NavCuestionario>
             </Route>
               <Route path="/"> 
                  <Login />

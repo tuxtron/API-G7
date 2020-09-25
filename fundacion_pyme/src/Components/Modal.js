@@ -1,8 +1,8 @@
 import react from 'react';
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Modal from 'react-bootstrap/Modal';
+import { Modal } from 'react-bootstrap';
 import './Modal.css';
 
 function ModalEjemplo() {
