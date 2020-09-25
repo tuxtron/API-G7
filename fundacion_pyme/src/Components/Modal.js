@@ -1,39 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import './Modal.css';
 
 
-function ModalEjemplo(props) {
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+export class ModalEjemplo extends Component {
+  constructor(props){
+      super(props);
+  }
+ 
+  render(){
   return (
-    <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Open Modal
-      </Button> */}
-
-      <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Title  closeButton></Modal.Title>
-        <Modal.Header className="modal_title">Hola!
-        </Modal.Header>
-        <Modal.Body>Estas por cambiar este formulario, ¿Quéres continuar?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+    <Modal
+    {...this.props}
+    size="lg"
+    aria-labelledby="contained-modal-title-vcenter"
+    centered
+  >
+    <Modal.Header closeButton>
+      <Modal.Title id="contained-modal-title-vcenter">
+        Hola!
+      </Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <p>
+        Estas por cambiar el estado del formulario, ¿Deseas continuar?
+      </p>
+    </Modal.Body>
+    <Modal.Footer>
+          <Button variant="secondary" onClick={this.props.onHide}>
             Cancelar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Guardar Cambios
+          <Button variant="primary" onClick={this.props.onHide}>
+            Guarcar Cambios
           </Button>
         </Modal.Footer>
-      </Modal>
-    </>
-  );
+ 
+  </Modal>
+);
+}
 }
 
-export default ModalEjemplo;
+
 
 
