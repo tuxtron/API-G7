@@ -2,7 +2,8 @@ import React from 'react';
 import isoFOP from './images/isoFOP.svg';
 import './Sidebar.css';
 import singout from './images/sign-out.svg';
-import listSolid from './images/listSolid.svg'
+import listSolid from './images/listSolid.svg';
+import { Link } from 'react-router-dom';
 
 function Sidebar () {
 
@@ -11,23 +12,23 @@ function Sidebar () {
                <div className="sidebar-body">
 
                     <div className="content">
-                        <div style={{display:'flex'}}>
+                        <div style={{'display': ['flex'], alignItems:'flex-end'}}>
                             <img className="sidebar-ISO" src={isoFOP} alt="IsoFOP.svg"/>
-                            <p  className="sidebar-FOP">Fundacion observatorio PYME </p>
+                            <p  className="sidebar-FOP">Fundación Observatorio PYME </p>
                         </div>
                     <div>
-                        <div className="location-text">
+                        <Link to="/home" className="location-text">
                             <img className="solid.list" src={listSolid} alt="listSolid.svg"/>
-                            <a className="sidebar-text"href="#Encuestas">Encuestas</a>
-                        </div>
+                            <p className="sidebar-text"href="#Encuestas">Encuestas</p>
+                        </Link>
 
                     </div>
                     </div>
                     <div>
-                            <div style={{'display': ['flex']}}>
+                            <Link to="/login" className="signOutBtn">
                                 <img src={singout} alt="IsoFOP.svg"/>
-                                <a className="sidebar-logoff" href="#LogOut">Cerrar Sesión</a>
-                            </div>
+                                <p className="sidebar-logoff" href="#LogOut">Cerrar Sesión</p>
+                            </Link>
                     </div>
 
                 </div>

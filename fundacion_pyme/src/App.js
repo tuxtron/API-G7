@@ -21,8 +21,10 @@ function App() {
           <div className="App">
           <Switch>
               <Route path="/home"> 
-                  <Sidebar />
-                  <Tabla/>
+                  <div className="app__home">
+                    <Sidebar />
+                    <Tabla/>
+                  </div>
               </Route>
               <Route path="/detalle">
                 {
