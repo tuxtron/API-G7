@@ -34,7 +34,8 @@ function App() {
                 }
             </Route>
             <Route path="/nav">
-              <NavCuestionario/>
+              <NavCuestionario 
+                isSupervisor={state.isSupervisor}>Preguntas</NavCuestionario>
             </Route>
               <Route path="/"> 
                  <Login />

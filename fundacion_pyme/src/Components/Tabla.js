@@ -1,6 +1,6 @@
 import React from 'react';
 import './Tabla.css';
-import Table from 'react-bootstrap/Table';
+import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import encuestas from '../data-table.json'
 import eye from './images/eye-solid.svg'

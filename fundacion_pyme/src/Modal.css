@@ -1,0 +1,10 @@
+.modal {
+  margin: 10px 20px 20px 20px;
+  width: 580px;
+}
+
+.modal__header{
+  display: flex;
+  flex-direction: row;
+}
+

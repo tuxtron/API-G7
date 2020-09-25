@@ -1,9 +1,9 @@
-import react from 'react';
+import ReactDOM from 'react-dom';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal } from 'react-bootstrap';
 import './Modal.css';
+
 
 function ModalEjemplo() {
   const [show, setShow] = useState(true);
@@ -18,8 +18,8 @@ function ModalEjemplo() {
       </Button>
 
       <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Hola!</Modal.Title>
+        <Modal.Title  closeButton></Modal.Title>
+        <Modal.Header className="modal_title">Hola!
         </Modal.Header>
         <Modal.Body>Estas por cambiar este formulario, ¿Quéres continuar?</Modal.Body>
         <Modal.Footer>
@@ -36,4 +36,5 @@ function ModalEjemplo() {
 }
 
 export default ModalEjemplo;
+
 
