@@ -1,10 +1,10 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import './NavCuestionario.css';
 import chevron from './images/chevron-left-solid.svg';
 import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {ModalEjemplo} from './Modal';
-import { Button , ButtonToolbar} from 'react-bootstrap';
+import { ModalEjemplo } from './Modal';
+import { Button } from 'react-bootstrap';
 
 
 export class NavCuestionario extends Component {

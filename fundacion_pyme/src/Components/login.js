@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
-import * as EmailValidator from "email-validator";
+// import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import "./Login.css";
 
