@@ -1,0 +1,12 @@
+.survey-table{
+    font-family: Helvetica;
+    font-size: 21x;
+    color: #000000BF;
+}
+
+.detail-eye{
+    margin-right: 5px;
+    height: 14px;
+    opacity: 4;
+    color:#777474;
+}
