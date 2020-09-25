@@ -6,13 +6,12 @@ import NavCuestionario from './Components/NavCuestionario';
 import Tabla from './Components/Tabla';
 import Sidebar from './Components/Sidebar';
 import listaDePreguntas from './listaDePreguntas.json';
-import ModalEjemplo from './Components/Modal';
 import Login from './Components/login'
 
 function App() {
 
   const [state, setState] = useState({
-      isSupervisor:false,
+      isSupervisor:true,
   });
 
 
@@ -27,14 +26,22 @@ function App() {
                   </div>
               </Route>
               <Route path="/detalle">
-                {
-                    listaDePreguntas.map((pregunta, index) => {
-                          return  <Pregunta 
-                                    key={index}
-                                    objPregunta={pregunta}
-                                    isSupervisor={state.isSupervisor} />
-                    })
-                }
+                <div className="app__home">
+                <Sidebar />
+                    <div className="app__navPregunta">
+                    <NavCuestionario 
+                    isSupervisor={state.isSupervisor}>
+                      {
+                          listaDePreguntas.map((pregunta, index) => {
+                                return  <Pregunta 
+                                          key={index}
+                                          objPregunta={pregunta}
+                                          isSupervisor={state.isSupervisor} />
+                          })
+                      }
+                    </NavCuestionario>
+                    </div>
+                </div>
             </Route>
             <Route path="/nav">
               <NavCuestionario 

@@ -4,5 +4,14 @@
 
 .app__home {
   display: flex;
+  overflow-x: scroll;
 }
 
+.app__navPregunta {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 50px;
+  overflow: scroll !important;
+}

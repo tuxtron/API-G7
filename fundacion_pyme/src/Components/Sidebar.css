@@ -6,19 +6,24 @@
     width: 121px;
     height: 34px;
     text-align: left;
-    font: normal normal bold 12px/17px Centra No2;
+    font: normal normal bold 10px/18px Centra No2;
     letter-spacing: 0px;
     color: #42526E;
     opacity: 1;
     margin-left: 10px;
 }
+
+.sidebar-ISO {
+    width: 60px;
+}
+
 .sidebar-text {
 
-    font: normal normal normal 22px/29px Centra No2;
+    font: normal normal normal 15px/22px Centra No2;
     letter-spacing: 0px;
     color: #42526E;
     opacity: 1;
-    margin-left: 23px;
+    margin-left: 15px;
     margin-bottom: 0;
 }
 
@@ -27,15 +32,16 @@
     align-items: center;
     justify-content: flex-start;
     text-align: left;
-    margin-top: 100px;
+    margin-top: 50px;
+    margin-left: 25px;
     text-decoration: none !important;
 }
 .sidebar-logoff {
-    font: normal normal bold 22px/29px Centra No2;
+    font: normal normal bold 15px/22px Centra No2;
     letter-spacing: 0px;
     color: #D16969;
     opacity: 1;
-    margin-left: 23px;
+    margin-left: 13px;
     margin-bottom: 0;
 }
 
@@ -65,9 +71,10 @@
     flex-direction: column;
     top: 0px;
     left: 0px;
-    width: 292px;
-    height: 1080px;
-    padding: 65px 41px;
+    min-width: 230px;
+    width: 30vh;
+    height: 100vh;
+    padding: 65px 20px;
     background: #0000000A 0% 0% no-repeat padding-box;
     box-shadow: 1px 3px 6px #00000058;
     opacity: 1;
@@ -89,6 +96,7 @@
     display:flex; 
     align-items: center;
     text-decoration: none !important;
+    margin-left: 25px;
 }
 
 .signOutBtn:hover {

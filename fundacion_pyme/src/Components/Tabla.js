@@ -4,14 +4,17 @@ import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import encuestas from '../data-table.json'
 import eye from './images/eye-solid.svg'
+import { Link } from 'react-router-dom'
 
 
 
 
 const Tabla =()=>{
     return(
-        <Table  bordered hover responsive>
-        <thead class="survey-table">
+        <div className="table">
+        <p className="table-title">Listado de Encuestas</p>
+        <Table  borderless hover responsive>
+        <thead class="survey-table" style={{borderBottom: '1px solid #42526E', textAlign:'center'}}>
             <tr>
                 <th>Id</th>
                 <th>Nombre encuesta</th>
@@ -21,24 +24,27 @@ const Tabla =()=>{
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody class="survey-table">
+        <tbody class="survey-table" style={{textAlign:'center'}}>
            {encuestas.map (ul => {
                return (
                    <tr key={ul.id}>
                        <td>{ul.id}</td>
-                       <td>{ul.survey_name}</td>
+                       <td style={{textAlign:'left'}}>{ul.survey_name}</td>
                        <td>{ul.company}</td>
                        <td>{ul.status}</td>
                        <td>{ul.date}</td>
                        <td>
-                       <img class="detail-eye" src={eye} alt="eye-solid.svg"/>
-                           <a href="">Ver detalle</a>
+                       <Link to="/detalle" style={{display:'flex', alignItems:'center', textDecoration:'none'}}>  
+                           <img class="detail-eye" src={eye} alt="eye-solid.svg"/>
+                           <p className="verDetalle">Ver detalle</p>
+                        </Link>
                         </td>
                    </tr>
                )
            })}
         </tbody>
     </Table>
+    </div>
     )
 }
 

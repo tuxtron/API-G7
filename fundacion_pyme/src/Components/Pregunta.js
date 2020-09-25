@@ -4,6 +4,7 @@ import hourglass from './images/hourglass-regular.svg';
 import checksolid from './images/check-solid.svg'
 import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
  
 function Pregunta(props) {
 
@@ -100,7 +101,7 @@ function Pregunta(props) {
         switch (pregunta.tipo) {
             case "choice":
                 return (
-                        <Form.Group className="pregunta__formGroupContainer">
+                        <Form.Group className="pregunta__formGroupContainer"> 
                         { 
                             pregunta.posiblesResultados.map((resultado, index) => {
                                 return <Form.Check 
@@ -135,7 +136,7 @@ function Pregunta(props) {
             default:
                 // case "text" or other
                 return (
-                        <textarea style={{marginLeft:'10px'}} className="pregunta__respuestaContainer"></textarea>
+                    <textarea style={{marginLeft:'10px'}} className="pregunta__respuestaContainer">{pregunta.respuestaValidada}</textarea>
                 )
         }
     }
@@ -183,8 +184,8 @@ function Pregunta(props) {
                 getObservacionByStatus()
             }
             <div className={ state.estado === "validada" ? "pregunta__btnSectionEnRevision" : "pregunta__btnSectionAprobado"} >
-                <button className="pregunta__btnRevisar" onClick={revisarBtnClicked} >Revisar</button>
-                <button className="pregunta__btnAprobar" onClick={aprobarBtnClicked}>Aprobar</button>
+                <Link className="pregunta__btnRevisar" onClick={revisarBtnClicked} >Revisar</Link>
+                <Link className="pregunta__btnAprobar" onClick={aprobarBtnClicked}>Aprobar</Link>
             </div>
         </div>
     ) 

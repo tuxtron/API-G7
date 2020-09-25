@@ -1,9 +1,9 @@
 import React from "react";
 import { Formik } from "formik";
+import { Link } from "react-router-dom";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import "./Login.css";
-
 
 const ValidatedLoginForm = () => (
     <Formik
@@ -36,7 +36,9 @@ const ValidatedLoginForm = () => (
                 handleSubmit
             } = props;
             return (
-                <form onSubmit={handleSubmit}>
+                <div className="pantallaLogin">
+                <form className="loginForm" onSubmit={handleSubmit}>
+                    <img src={require("./images/fundacionObsPymeLogo.png")} alt="logo" className="logo" />
                     <label htmlFor="email">Email</label>
                     <input
                         name="email"
@@ -50,7 +52,7 @@ const ValidatedLoginForm = () => (
                     {errors.email && touched.email && (
                         <div className="input-feedback">{errors.email}</div>
                     )}
-                    <label htmlFor="email">Password</label>
+                    <label style={{marginTop:'20px'}} htmlFor="email">Password</label>
                     <input
                         name="password"
                         type="password"
@@ -63,10 +65,11 @@ const ValidatedLoginForm = () => (
                     {errors.password && touched.password && (
                         <div className="input-feedback">{errors.password}</div>
                     )}
-                    <button type="submit" disabled={isSubmitting}>
+                    <Link className="iniciarSesionBtn" to="/home" style={{marginTop:'20px'}} type="submit" disabled={isSubmitting}>
                         Iniciar Sesion
-          </button>
+                    </Link>
                 </form>
+                </div>
             );
         }}
     </Formik>

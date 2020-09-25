@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './NavCuestionario.css';
 import chevron from './images/chevron-left-solid.svg';
-import checksolid from './images/check-solid.svg'
 import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import encuestas from '../data-table.json'
+import Modal from './Modal'
 
 function NavCuestionario(props) {
+
     return (
       <>
         <div className="nav">
           <Link className="nav_button"
-                to="/about">
+                to="/home">
                   <img
                   alt="<"
                   src={chevron}
@@ -21,15 +21,17 @@ function NavCuestionario(props) {
           <li>ID: 10204</li>
           <li>Encuesta: Calidad de empresa</li>
           <li>Fecha de envio: 29/08/2020</li>
+          <hr/>
         </div>
         {props.children}
+        <hr/>
         <div className="nav_accept_button">
         {  props.isSupervisor ? 
           <> 
-            <button>Aprobar</button>
-            <button>Rechazar</button>
+            <Link to="/home" className="nav_rechazarBtn">Rechazar Encuesta</Link>
+            <Link to="/home" className="nav_aprobarBtn">Aprobar Encuesta</Link>
           </> 
-          : <button>Enviar Validacion</button>
+          : <Link  to="/home" className="nav_enviarValidacionBtn">Enviar Validacion</Link>
         }
         </div>
       </>

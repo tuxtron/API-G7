@@ -4,11 +4,8 @@
         "tipo":"texto",
         "pregunta":"Como te llamas?",
         "respuesta":"Me llamo respuesta de la pregunta 1",
-        "aprobada":false,
-        "checked":true,
         "observacion":"volve a validar por favor...",
-        "validada":false,
-        "respuestaValidada": null,
+        "respuestaValidada": "respuesta validada de la pregunta 1",
         "estado":"validada"
     },
     {
@@ -16,10 +13,7 @@
         "tipo":"numerica",
         "pregunta":"Cuantos años tenes?",
         "respuesta":24,
-        "aprobada":false,
-        "checked":true,
         "observacion":"hola, volve a validar por favor...",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"enRevision"
     },
@@ -29,10 +23,7 @@
         "pregunta":"Qué gaseosa te gusta más?",
         "posiblesResultados":["Coca Cola", "Pepsi", "Sprite", "Mirinda de Manzana"],
         "respuesta":0,
-        "aprobada":false,
-        "checked":true,
         "observacion":"buenas, volve a validar por favor...",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"enRevision"
     },
@@ -42,10 +33,7 @@
         "pregunta":"Qué tipo de transporte usas para viajar a la facultad?",
         "posiblesResultados":["Caminando", "Colectivo", "Subte", "Tren", "Bicicleta"],
         "respuesta":1,
-        "aprobada":false,
-        "checked":true,
         "observacion":"que tal, volve a validar por favor...",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"enRevision"
     },
@@ -54,10 +42,7 @@
         "tipo":"texto",
         "pregunta":"Como te llamas?",
         "respuesta":"Me llamo respuesta de la pregunta 1",
-        "aprobada":true,
-        "checked":true,
         "observacion":"",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"aprobada"
     },
@@ -66,10 +51,7 @@
         "tipo":"numerica",
         "pregunta":"Cuantos años tenes?",
         "respuesta":24,
-        "aprobada":true,
-        "checked":true,
         "observacion":"",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"aprobada"
     },
@@ -79,10 +61,7 @@
         "pregunta":"Qué gaseosa te gusta más?",
         "posiblesResultados":["Coca Cola", "Pepsi", "Sprite", "Mirinda de Manzana"],
         "respuesta":0,
-        "aprobada":true,
-        "checked":true,
         "observacion":"",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"aprobada"
     },
@@ -92,10 +71,7 @@
         "pregunta":"Qué tipo de transporte usas para viajar a la facultad?",
         "posiblesResultados":["Caminando", "Colectivo", "Subte", "Tren", "Bicicleta"],
         "respuesta":1,
-        "aprobada":true,
-        "checked":true,
         "observacion":"",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"aprobada"
     },
@@ -104,10 +80,7 @@
         "tipo":"texto",
         "pregunta":"Como te llamas?",
         "respuesta":"Me llamo respuesta de la pregunta 1",
-        "aprobada":null,
-        "checked":false,
         "observacion":"",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"pendiente"
     },
@@ -116,10 +89,7 @@
         "tipo":"numerica",
         "pregunta":"Cuantos años tenes?",
         "respuesta":24,
-        "aprobada":null,
-        "checked":false,
         "observacion":"",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"pendiente"
     },
@@ -129,10 +99,7 @@
         "pregunta":"Qué gaseosa te gusta más?",
         "posiblesResultados":["Coca Cola", "Pepsi", "Sprite", "Mirinda de Manzana"],
         "respuesta":0,
-        "aprobada":null,
-        "checked":false,
         "observacion":"",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"pendiente"
     },
@@ -142,10 +109,7 @@
         "pregunta":"Qué tipo de transporte usas para viajar a la facultad?",
         "posiblesResultados":["Caminando", "Colectivo", "Subte", "Tren", "Bicicleta"],
         "respuesta":1,
-        "aprobada":null,
-        "checked":false,
         "observacion":"",
-        "validada":false,
         "respuestaValidada": null,
         "estado":"pendiente"
     }

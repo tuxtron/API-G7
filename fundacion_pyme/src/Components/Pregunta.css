@@ -1,17 +1,17 @@
 .pregunta {
     margin: 10px 20px 50px 20px;
-    width: 1160px;
+    width: 100%;
 }
 
 .pregunta__header{
     display: flex;
     flex-direction: row;
-    width: 572px;
+    width: 480px;
 }
 
 .pregunta__numero{
     text-align: left;
-    font: normal normal bold 21px/27px Centra No2;
+    font: normal normal bold 17px/22px Centra No2;
     letter-spacing: 0px;
     color: #000000BF;
     opacity: 1;
@@ -25,7 +25,7 @@
 
 .pregunta__sticker{
     text-align: left;
-    font: normal normal normal 16px/24px Helvetica Neue;
+    font: normal normal normal 17px/22px Helvetica Neue;
     letter-spacing: 0px;
     color: #42526E;
     opacity: 1;
@@ -41,15 +41,15 @@
     border: 1px solid #CCCCCC;
     border-radius: 5px;
     opacity: 1;
-    width: 572px;
-    height: 63px;
+    width: 480px;
+    height: 50px;
     display: flex;
     align-items: center;
 }
 
 .pregunta__descripcion {
     text-align: left;
-    font: normal normal normal 21px/27px Centra No2;
+    font: normal normal normal 17px/22px Centra No2;
     letter-spacing: 0px;
     color: #00000080;
     opacity: 1;  
@@ -63,14 +63,14 @@
 
 .pregunta__respuesta {
     text-align: left;
-    font: normal normal normal 21px/27px Centra No2;
+    font: normal normal normal 17px/22px Centra No2;
     letter-spacing: 0px;
     color: #000000A0;
     opacity: 1;
     margin-top: 20px;
     margin-bottom: 10px; 
     display: inline-block;
-    width: 580px;
+    width: 490px;
 }
 
 .pregunta__respuestaContainer{
@@ -78,11 +78,11 @@
     border: 1px solid #CCCCCC;
     border-radius: 5px;
     opacity: 1;
-    width: 572px;
+    width: 480px;
     padding: 20px;
-    min-height: 123px;
+    min-height: 100px;
     text-align: left;
-    font: normal normal normal 21px/27px Centra No2;
+    font: normal normal normal 17px/22px Centra No2;
     letter-spacing: 0px;
     color: #00000080;
     resize: none;
@@ -98,7 +98,7 @@
     margin-left: 10px;
     min-height: 123px;
     text-align: left;
-    font: normal normal normal 21px/27px Centra No2;
+    font: normal normal normal 17px/22px Centra No2;
     letter-spacing: 0px;
     color: #00000080;
     resize: none;
@@ -106,7 +106,7 @@
 
 .pregunta__formGroupContainer {
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    width: 572px;
+    width: 480px;
     padding: 20px 0px;
     margin-left: 10px;
     text-align: left;
@@ -118,7 +118,7 @@
     border: 1px solid #CCCCCC;
     border-radius: 5px;
     opacity: 1;
-    width: 572px;
+    width: 480px;
     padding: 20px;
     margin-left: 10px;
     min-height: 123px;
@@ -127,34 +127,53 @@
 .pregunta__btnSectionEnRevision {
     display: flex;
     justify-content: flex-end;
+    width: 970px;
 }
 
 .pregunta__btnSectionAprobado{
     display: flex;
     justify-content: flex-end;
-    width: 580px;
+    width: 480px;
 }
 
 .pregunta__btnRevisar {
     background: #D38E2F 0% 0% no-repeat padding-box;
     border-radius: 4px;
+    border: 1px solid #D38E2F !important;
     opacity: 1;
     width: 81px;
     height: 34px;
     color: #fff;
     border: none;
     margin: 10px;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none !important;
+}
+
+.pregunta__btnRevisar:hover {
+    color: #D38E2F;
+    background-color: #fff;
 }
 
 .pregunta__btnAprobar {
     width: 81px;
     height: 34px;
     background: #5CB85C 0% 0% no-repeat padding-box;
+    border: 1px solid #5CB85C !important;
     border-radius: 4px;
     opacity: 1;
     color: #fff;
     border: none;
     margin: 10px;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none !important;
+}
+
+.pregunta__btnAprobar:hover {
+    color: #5CB85C;
+    background-color: #fff;
 }
 
 .pregunta__btnAgregarObs {
@@ -172,6 +191,7 @@
     width: 81px;
     height: 34px;
     background: #2096F3 0% 0% no-repeat padding-box;
+    border: 1px solid #2096F3 !important;
     border-radius: 4px;
     opacity: 1;
     color: #fff;
@@ -179,9 +199,14 @@
     margin: 10px;
 }
 
+.pregunta__btnValidar:hover {
+    color: #2096F3;
+    background-color: #fff;
+}
+
 .pregunta__observacion {
     text-align: left;
-    font: normal normal normal 21px/27px Centra No2;
+    font: normal normal normal 17px/22px Centra No2;
     letter-spacing: 0px;
     color: #000000A0;
     opacity: 1;
@@ -192,13 +217,13 @@
 
 .pregunta__observacion > textarea {
     text-align: left;
-    font: normal normal normal 18px/27px Centra No2;
+    font: normal normal normal 17px/22px Centra No2;
     letter-spacing: 0px;
     color: #000000A0;
     opacity: 1;
     display: inline-block;
     padding: 20px;
-    width: 570px;
+    width: 480px;
     resize: none;
 }
 
@@ -217,7 +242,7 @@
 
 .form-check-label {
     text-align: left;
-    font: normal normal normal 21px/27px Centra No2;
+    font: normal normal normal 17px/22px Centra No2;
     letter-spacing: 0px;
     color: #00000080;
     opacity: 1;

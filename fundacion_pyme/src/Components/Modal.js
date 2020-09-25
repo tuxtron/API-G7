@@ -1,11 +1,10 @@
-import ReactDOM from 'react-dom';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import './Modal.css';
 
 
-function ModalEjemplo() {
+function ModalEjemplo(props) {
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
@@ -13,9 +12,9 @@ function ModalEjemplo() {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      {/* <Button variant="primary" onClick={handleShow}>
         Open Modal
-      </Button>
+      </Button> */}
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Title  closeButton></Modal.Title>
