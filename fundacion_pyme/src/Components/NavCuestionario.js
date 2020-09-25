@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import './NavCuestionario.css';
 import chevron from './images/chevron-left-solid.svg';
 import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Modal from './Modal'
+import {ModalEjemplo} from './Modal';
+import { Button , ButtonToolbar} from 'react-bootstrap';
 
-function NavCuestionario(props) {
+
+export class NavCuestionario extends Component {
+  constructor(props){
+    super(props);
+    this.state = {addModalShow : false}
+}
+
+  render() {
+    let addModalClose =() => this.setState({addModalShow : false});
 
     return (
-      <>
+        <>
         <div className="nav">
           <Link className="nav_button"
                 to="/home">
@@ -23,19 +32,41 @@ function NavCuestionario(props) {
           <li>Fecha de envio: 29/08/2020</li>
           <hr/>
         </div>
-        {props.children}
+        {this.props.children}
         <hr/>
         <div className="nav_accept_button">
-        {  props.isSupervisor ? 
+        {  this.props.isSupervisor ? 
           <> 
-            <Link to="/home" className="nav_rechazarBtn">Rechazar Encuesta</Link>
-            <Link to="/home" className="nav_aprobarBtn">Aprobar Encuesta</Link>
+          <ButtonToolbar>
+            <Button 
+            className="nav_rechazarBtn"
+            onClick={()=> this.setState({addModalShow : true})}
+            >Rechazar Encuesta
+            </Button>
+          </ButtonToolbar>
+          <ModalEjemplo
+          show = {this.state.addModalShow}
+          onHide = {addModalClose}
+          />
+          <ButtonToolbar>
+            <Button 
+            className="nav_aprobarBtn"
+            onClick={()=> this.setState({addModalShow : true})}
+            >Aprobar Encuesta
+            </Button>
+          </ButtonToolbar>
+          <ModalEjemplo
+          show = {this.state.addModalShow}
+          onHide = {addModalClose}
+          />
+
           </> 
           : <Link  to="/home" className="nav_enviarValidacionBtn">Enviar Validacion</Link>
         }
         </div>
-      </>
+        </>
     );
+}
 }
 
 export default NavCuestionario
