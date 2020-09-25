@@ -11,7 +11,7 @@ import Tabla from './Components/Tabla'
 function App() {
 
   const [state, setState] = useState({
-      isSupervisor:false,
+      isSupervisor:true,
   });
 
 

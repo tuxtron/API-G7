@@ -11,21 +11,41 @@ function Pregunta(props) {
 
     const [state, setState] = useState({
         isSupervisor: props.isSupervisor,
-        aprobada: pregunta.aprobada,  // aprobada = false => En Revisión
-        checked: pregunta.checked,
-        validada: false,
+        estado: pregunta.estado,
     })
 
     const revisarBtnClicked = () => {
-        setState({...state, aprobada:false, checked:true});
+        setState({...state, estado:"enRevision"});
     }
 
     const aprobarBtnClicked = () => {
-        setState({...state, aprobada:true, checked:true});
+        setState({...state, estado:"aprobada"});
     }
 
     const validarBtnClicked = () => {
-        setState({...state, validada:true});
+        setState({...state, estado:"validada"});
+    }
+
+    const getStickerByStatus = () => {
+        switch (state.estado) {
+            case "aprobada":
+                return <>
+                          <img className="pregunta__hourglass" src={checksolid} alt="hourglass.svg"/>
+                          Aprobado
+                       </>
+            case "enRevision":
+                return <>
+                           <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
+                           En revisión
+                       </>
+            case "validada":
+                return <>
+                           <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
+                           Validada
+                       </>
+            default:
+                return null;
+        }
     }
 
     const getResultByType = () => {
@@ -120,24 +140,31 @@ function Pregunta(props) {
         }
     }
 
+    const getObservacionByStatus = () => {
+        switch (state.estado) {
+            case "enRevision":
+                return   <div className="pregunta__observacion">
+                            <p>Observación: </p>
+                            <textarea>{pregunta.observacion}</textarea>
+                        </div> 
+            case "validada":
+                return  <div className="pregunta__observacion">
+                            <p>Observación: <br />
+                            { pregunta.observacion ? pregunta.observacion : "-" }
+                            </p> 
+                        </div>
+            default:
+                return null;
+        }
+    }
+
     const pantallaSupervisor = (
         <div className="pregunta">
             <div className="pregunta__header">
                 <p className="pregunta__numero">Pregunta {pregunta.id}</p>
-                <p className="pregunta__enRevision">
-                    {
-                        !state.checked ? null :
-                            state.aprobada 
-                            ? 
-                            <>
-                            <img className="pregunta__hourglass" src={checksolid} alt="hourglass.svg"/>
-                            Aprobado
-                            </>
-                            :
-                            <>
-                            <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
-                                En revisión
-                            </>
+                <p className="pregunta__sticker">
+                    {   
+                        getStickerByStatus()
                     }
                 </p>
             </div>
@@ -146,13 +173,16 @@ function Pregunta(props) {
             </div>
             <p className="pregunta__respuesta">Respuesta</p>
             {
-                state.checked && !state.aprobada ? <p className="pregunta__respuesta">Observación</p> : null
+                state.estado === "validada" ? <p className="pregunta__respuesta">Respuesta Validada</p> : null
             }
             <div className="pregunta__respuestaGeneral">
                 {   getResultByType()    }
-        {   state.checked && !state.aprobada ? <textarea className="pregunta__observacionContainer" >{ pregunta.observacion }</textarea> : null  }
+                {   state.estado === "validada" ? getEditableResultByType() : null  }
             </div>
-            <div className={ !state.checked || (state.checked && state.aprobada) ? "pregunta__btnSectionAprobado" : "pregunta__btnSectionEnRevision"} >
+            { 
+                getObservacionByStatus()
+            }
+            <div className={ state.estado === "validada" ? "pregunta__btnSectionEnRevision" : "pregunta__btnSectionAprobado"} >
                 <button className="pregunta__btnRevisar" onClick={revisarBtnClicked} >Revisar</button>
                 <button className="pregunta__btnAprobar" onClick={aprobarBtnClicked}>Aprobar</button>
             </div>
@@ -160,23 +190,22 @@ function Pregunta(props) {
     ) 
 
     const pantallaOperador = (
-         pregunta.checked && !pregunta.aprobada 
+         state.estado === "enRevision" || state.estado === "validada"
          ?
         <div className="pregunta">
             <div className="pregunta__header">
                 <p className="pregunta__numero">Pregunta {pregunta.id}</p>
-                <p className="pregunta__enRevision">
-                    <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
-                    { state.validada ? "Validada" : "En revisión" }
+                <p className="pregunta__sticker">
+                    {   
+                        getStickerByStatus()
+                    }
                 </p>
             </div>
             <div className="pregunta__descripcionContainer">
                 <p className="pregunta__descripcion">{pregunta.pregunta}</p>
             </div>
             <p className="pregunta__respuesta">Respuesta</p>
-            {
-                <p className="pregunta__respuesta">Respuesta Validada</p>
-            }
+            <p className="pregunta__respuesta">Respuesta Validada</p>
             <div className="pregunta__respuestaGeneral">
                 { getResultByType()    }
                 { getEditableResultByType() }
@@ -185,7 +214,7 @@ function Pregunta(props) {
                 <p>Observación: <br />
                 { pregunta.observacion ? pregunta.observacion : "-" }</p>
             </div>
-            <div className={ !state.checked || (state.checked && state.aprobada) ? "pregunta__btnSectionAprobado" : "pregunta__btnSectionEnRevision"} >
+            <div className="pregunta__btnSectionEnRevision">
                 <button className="pregunta__btnValidar" onClick={validarBtnClicked} >Validar</button>
             </div>
         </div>
@@ -196,9 +225,11 @@ function Pregunta(props) {
 
 
     return (
-        state.isSupervisor ? pantallaSupervisor : pantallaOperador
+        <>
+            { state.isSupervisor ? pantallaSupervisor : pantallaOperador }
+        </>
     )
 
 }
 
-export default Pregunta
+export default Pregunta;

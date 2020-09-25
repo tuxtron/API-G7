@@ -6,7 +6,10 @@
         "respuesta":"Me llamo respuesta de la pregunta 1",
         "aprobada":false,
         "checked":true,
-        "observacion":"volve a validar por favor..."
+        "observacion":"volve a validar por favor...",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"validada"
     },
     {
         "id":2,
@@ -15,7 +18,10 @@
         "respuesta":24,
         "aprobada":false,
         "checked":true,
-        "observacion":"hola, volve a validar por favor..."
+        "observacion":"hola, volve a validar por favor...",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"enRevision"
     },
     {
         "id":3,
@@ -25,7 +31,10 @@
         "respuesta":0,
         "aprobada":false,
         "checked":true,
-        "observacion":"buenas, volve a validar por favor..."
+        "observacion":"buenas, volve a validar por favor...",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"enRevision"
     },
     {
         "id":4,
@@ -35,7 +44,10 @@
         "respuesta":1,
         "aprobada":false,
         "checked":true,
-        "observacion":"que tal, volve a validar por favor..."
+        "observacion":"que tal, volve a validar por favor...",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"enRevision"
     },
     {
         "id":5,
@@ -44,7 +56,10 @@
         "respuesta":"Me llamo respuesta de la pregunta 1",
         "aprobada":true,
         "checked":true,
-        "observacion":""
+        "observacion":"",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"aprobada"
     },
     {
         "id":6,
@@ -53,7 +68,10 @@
         "respuesta":24,
         "aprobada":true,
         "checked":true,
-        "observacion":""
+        "observacion":"",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"aprobada"
     },
     {
         "id":7,
@@ -63,7 +81,10 @@
         "respuesta":0,
         "aprobada":true,
         "checked":true,
-        "observacion":""
+        "observacion":"",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"aprobada"
     },
     {
         "id":8,
@@ -73,7 +94,10 @@
         "respuesta":1,
         "aprobada":true,
         "checked":true,
-        "observacion":""
+        "observacion":"",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"aprobada"
     },
     {
         "id":9,
@@ -82,7 +106,10 @@
         "respuesta":"Me llamo respuesta de la pregunta 1",
         "aprobada":null,
         "checked":false,
-        "observacion":""
+        "observacion":"",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"pendiente"
     },
     {
         "id":10,
@@ -91,7 +118,10 @@
         "respuesta":24,
         "aprobada":null,
         "checked":false,
-        "observacion":""
+        "observacion":"",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"pendiente"
     },
     {
         "id":11,
@@ -101,7 +131,10 @@
         "respuesta":0,
         "aprobada":null,
         "checked":false,
-        "observacion":""
+        "observacion":"",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"pendiente"
     },
     {
         "id":12,
@@ -111,7 +144,10 @@
         "respuesta":1,
         "aprobada":null,
         "checked":false,
-        "observacion":""
+        "observacion":"",
+        "validada":false,
+        "respuestaValidada": null,
+        "estado":"pendiente"
     }
 
 ]
