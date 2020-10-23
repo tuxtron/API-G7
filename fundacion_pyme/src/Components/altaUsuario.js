@@ -29,6 +29,12 @@ function altaUsuario() {
                         type="password"
                         placeholder="Password"
                     />
+                    <label style={{marginTop:'20px'}} htmlFor="email">Rol</label>
+                    <select style={{width:'100%', marginBottom:'10px'}}>
+                        <option>-</option>
+                        <option value="">Supervisor</option>
+                        <option value="">Operador</option>
+                    </select>
                     <Link className="iniciarSesionBtn" to="/usuarios" style={{marginTop:'20px'}} type="submit">
                         Confirmar
                     </Link>

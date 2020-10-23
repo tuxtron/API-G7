@@ -5,6 +5,7 @@ import checksolid from './images/check-solid.svg'
 import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import Drawer from './Drawer';
  
 function Pregunta(props) {
 
@@ -142,21 +143,22 @@ function Pregunta(props) {
     }
 
     const getObservacionByStatus = () => {
-        switch (state.estado) {
-            case "enRevision":
-                return   <div className="pregunta__observacion">
-                            <p>Observación: </p>
-                            <textarea>{pregunta.observacion}</textarea>
-                        </div> 
-            case "validada":
-                return  <div className="pregunta__observacion">
-                            <p>Observación: <br />
-                            { pregunta.observacion ? pregunta.observacion : "-" }
-                            </p> 
-                        </div>
-            default:
-                return null;
-        }
+        // switch (state.estado) {
+        //     case "enRevision":
+        //         return   <div className="pregunta__observacion">
+        //                     <p>Observación: </p>
+        //                     <textarea>{pregunta.observacion}</textarea>
+        //                 </div> 
+        //     case "validada":
+        //         return  <div className="pregunta__observacion">
+        //                     <p>Observación: <br />
+        //                     { pregunta.observacion ? pregunta.observacion : "-" }
+        //                     </p> 
+        //                 </div>
+        //     default:
+        //         return null;
+        // }
+        return <Drawer />
     }
 
     const pantallaSupervisor = (
@@ -180,10 +182,8 @@ function Pregunta(props) {
                 {   getResultByType()    }
                 {   state.estado === "validada" ? getEditableResultByType() : null  }
             </div>
-            { 
-                getObservacionByStatus()
-            }
             <div className={ state.estado === "validada" ? "pregunta__btnSectionEnRevision" : "pregunta__btnSectionAprobado"} >
+                <Drawer />
                 <Link className="pregunta__btnRevisar" onClick={revisarBtnClicked} >Revisar</Link>
                 <Link className="pregunta__btnAprobar" onClick={aprobarBtnClicked}>Aprobar</Link>
             </div>

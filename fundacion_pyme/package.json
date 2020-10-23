@@ -15,7 +15,7 @@
     "email-validator": "^2.0.4",
     "formik": "^2.1.5",
     "react": "^16.13.1",
-    "react-bootstrap": "^0.32.4",
+    "react-bootstrap": "^1.4.0",
     "react-bootstrap-validation": "^0.1.11",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

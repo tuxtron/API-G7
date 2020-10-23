@@ -12,7 +12,7 @@ import Login from './Components/login'
 
 function App() {
 
-  const [state] = useState({
+  const [state, setState] = useState({
       isSupervisor:true,
   });
 

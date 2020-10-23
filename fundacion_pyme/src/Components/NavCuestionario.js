@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './NavCuestionario.css';
 import chevron from './images/chevron-left-solid.svg';
 import { Link } from 'react-router-dom'
@@ -7,17 +7,21 @@ import { ModalEjemplo } from './Modal';
 import { Button } from 'react-bootstrap';
 
 
-export class NavCuestionario extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
+function NavCuestionario(props){
+//   constructor(props){
+//     super(props);
+//     this.state = {
+//       addModalShow : false,
+//       modalType: "",
+//     }
+// }
+
+  const [state, setState] = useState({
       addModalShow : false,
       modalType: "",
-    }
-}
+  });
 
-  render() {
-    let addModalClose =() => this.setState({addModalShow : false});
+  let addModalClose =() => this.setState({addModalShow : false});
 
     return (
         <>
@@ -35,25 +39,25 @@ export class NavCuestionario extends Component {
           <li>Fecha de envio: 29/08/2020</li>
           <hr/>
         </div>
-        {this.props.children}
+        { props.children }
         <hr/>
         <div className="nav_accept_button">
-        {  this.props.isSupervisor ? 
+        {  props.isSupervisor ? 
           <> 
               <Button 
                   className="nav_rechazarBtn"
-                  onClick={()=> this.setState({addModalShow : true, modalType:"Rechazar"})}
+                  onClick={()=> setState({addModalShow : true, modalType:"Rechazar"})}
                   >Rechazar Encuesta
               </Button>
               <Button 
                   className="nav_aprobarBtn"
-                  onClick={()=> this.setState({addModalShow : true, modalType:"Aprobar"})}
+                  onClick={()=> setState({addModalShow : true, modalType:"Aprobar"})}
                   >Aprobar Encuesta
               </Button>
               <ModalEjemplo
-                  show = {this.state.addModalShow}
+                  show = { state.addModalShow}
                   onHide = {addModalClose}
-                  modalType = {this.state.modalType}
+                  modalType = { state.modalType}
               />
             {/* <ModalEjemplo
             show = {this.state.addModalShow}
@@ -67,6 +71,6 @@ export class NavCuestionario extends Component {
         </>
     );
 }
-}
+
 
 export default NavCuestionario

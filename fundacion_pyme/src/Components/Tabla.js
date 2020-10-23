@@ -14,12 +14,9 @@ const Tabla =()=>{
     return(
         <div className="table">
             <p className="table-title">Listado de Encuestas</p>
-            {/* <div style={{display:'flex', marginBottom:'30px'}}>
+            <div style={{display:'flex', marginBottom:'30px'}}>
             <input type="text" placeholder="buscar encuesta" style={{padding:'8px 10px'}}/>
-            <Link>
-                <SearchIcon fontSize="large" style={{color:'black'}}/>
-            </Link>
-            </div> */}
+            </div>
         <Table  borderless hover responsive>
         <thead class="survey-table" style={{borderBottom: '1px solid #42526E', textAlign:'center'}}>
             <tr>
