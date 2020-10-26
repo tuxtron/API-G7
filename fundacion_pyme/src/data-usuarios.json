@@ -1,0 +1,130 @@
+[
+    {
+        "id":1,
+        "nombre":"Leandro Brizuela",
+        "usuario":"LBrizuela123",
+        "contraseña": "********",
+        "rol":"Supervisor",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":2,
+        "nombre":"Agustin Drewes",
+        "usuario":"ADrewes456",
+        "contraseña": "**********",
+        "rol":"Supervisor",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":3,
+        "nombre":"Agustin Tarapow",
+        "usuario":"ATarapow789",
+        "contraseña": "********",
+        "rol":"Supervisor",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":4,
+        "nombre":"Julian Krupka",
+        "usuario":"JKrupka123",
+        "contraseña": "******",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":5,
+        "nombre":"Yao Kevin",
+        "usuario":"CYao",
+        "contraseña": "******",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },
+    {
+        "id":6,
+        "nombre":"test",
+        "usuario":"test123",
+        "contraseña": "**********",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":7,
+        "nombre":"test",
+        "usuario":"test456",
+        "contraseña": "********",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":8,
+        "nombre":"test",
+        "usuario":"test789",
+        "contraseña": "********",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },
+    {
+        "id":9,
+        "nombre":"Leandro Brizuela",
+        "usuario":"LBrizuela123",
+        "contraseña": "********",
+        "rol":"Supervisor",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":10,
+        "nombre":"Agustin Drewes",
+        "usuario":"ADrewes456",
+        "contraseña": "**********",
+        "rol":"Supervisor",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":11,
+        "nombre":"Agustin Tarapow",
+        "usuario":"ATarapow789",
+        "contraseña": "********",
+        "rol":"Supervisor",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":12,
+        "nombre":"Julian Krupka",
+        "usuario":"JKrupka123",
+        "contraseña": "******",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":13,
+        "nombre":"Yao Kevin",
+        "usuario":"CYao",
+        "contraseña": "******",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },
+    {
+        "id":14,
+        "nombre":"test",
+        "usuario":"test123",
+        "contraseña": "**********",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":15,
+        "nombre":"test",
+        "usuario":"test456",
+        "contraseña": "********",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    },    
+    {
+        "id":16,
+        "nombre":"test",
+        "usuario":"test789",
+        "contraseña": "********",
+        "rol":"Operador",
+        "fechaAlta":"17/08/2020"
+    }
+]
