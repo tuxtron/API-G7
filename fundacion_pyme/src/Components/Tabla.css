@@ -28,6 +28,10 @@
     opacity: 1;
 }
 
+.tabla__row{
+    max-height: 20px;
+}
+
 .detail-eye{
     margin-right: 5px;
     height: 14px;

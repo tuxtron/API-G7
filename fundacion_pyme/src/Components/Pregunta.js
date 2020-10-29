@@ -4,7 +4,7 @@ import hourglass from './images/hourglass-regular.svg';
 import checksolid from './images/check-solid.svg'
 import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Drawer from './Drawer';
  
 function Pregunta(props) {
@@ -223,10 +223,11 @@ function Pregunta(props) {
     )
     
     // const aprobada = props.aprobada;
-
+    const location = useLocation();
+    console.log(location.preguntas);
 
     return (
-        <>
+        <>  
             { state.isSupervisor ? pantallaSupervisor : pantallaOperador }
         </>
     )

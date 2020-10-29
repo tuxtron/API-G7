@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import Pregunta from './Components/Pregunta';
 import NavCuestionario from './Components/NavCuestionario';
 import Tabla from './Components/Tabla';
 import Sidebar from './Components/Sidebar';
 import Usuarios from './Components/Usuarios';
 import AltaUsuario from './Components/altaUsuario'
-import listaDePreguntas from './listaDePreguntas.json';
 import Login from './Components/login'
+
+import './App.css';
+import listaDePreguntas from './listaDePreguntas.json';
+import listaDeEncuentas from './lista_encuentas_la_posta.json';
 
 function App() {
 

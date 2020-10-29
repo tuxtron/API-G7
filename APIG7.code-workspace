@@ -1,0 +1,15 @@
+{
+  "folders": [
+	{
+		"path": "fundacion_pyme"
+	},
+	{
+		"path": "API-G7-back"
+	}
+],
+  "settings": {
+    "emmet.includeLanguages": {
+      "javascript": "javascriptreact"
+    }
+  }
+}
