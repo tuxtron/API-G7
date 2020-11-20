@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PersonIcon from '@material-ui/icons/Person';
 import './Drawer.css';
 import Typography from '@material-ui/core/Typography';
-
+import axios from 'axios';
 
 const useStyles = makeStyles({
   rtaList: {
@@ -19,36 +19,75 @@ const useStyles = makeStyles({
   },
   list: {
     width: 300,
+    height: "100%",
     overflowY: "scroll"
   },
   fullList: {
     width: 'auto',
+    overflowY: 'scroll'
   },
-  form: {
-    position:"fixed", 
-    bottom:"0", 
+  inline: {
+    color: "#42536E",
+    fontWeight: "bold"
   },
-  input: {
-      height:"50px",
-      margin:0,
-      borderRadius:0,
-      outline: "none"
-  }
 });
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawer(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false,
+    inputObs: '',
+    idPregunta: props.pregunta._id,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
+
+  const pregunta = props.pregunta;
+
+  const getFechaHora = (date) => {
+    //transforma "2020-10-28T18:15:35.468Z" a "28-10-2020"
+    const newDate = date.split("T", 1);
+    var newHora = date.split("T", 2);
+    newHora = newHora[1].split(".", 1)
+    return newHora+" "+newDate
+}
+
+  const revisarBtnClicked = () => {
+      props.revisarBtnClicked();
+      setState({...state, right:false});
+      const data = {
+        idPregunta: state.idPregunta,
+        revision : {
+            observacion: {
+                // falta la parte de traer usuario
+                usuario: "adrewes123",
+                mensaje: state.inputObs
+                }
+        }
+    };
+    
+    let config = {
+      headers: {
+        Authorization: `Bearer `+localStorage.getItem('token'),
+      }
+    }
+
+    axios.post(`https://obs-pyme-validacion-back.herokuapp.com/api/pregunta/revision`, data, config)
+        .then( (response) => console.log(response))
+        .catch( (error) => console.log(error));
+    
+    
+  }
+
+  const textAreaOnChange = (event) => {
+      const value = event.target.value;
+      setState({...state, inputObs:value});
+  }
 
   const list = (anchor) => (
     <div
@@ -61,91 +100,100 @@ export default function TemporaryDrawer() {
     >
       <List className={classes.rtaList}>
             <ListItem>
-                <ListItemText secondary={"Respuesta : me llamo gato"} />
+                <ListItemText secondary={"Respuesta Original: " + pregunta.value} />
             </ListItem>
       </List>
       <Divider />
-      <List>
-          <ListItem>
-            <ListItemIcon><PersonIcon /></ListItemIcon>
-            <ListItemText secondary={
-                <React.Fragment>
-                    <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
-                    >
-                        Supervisor
-                    </Typography>
-                    <br/>
-                    {"Revisa porque no se llama gato"}
-                    <br/>
-                    {"11:15"}
-                </React.Fragment>
-            } />
-          </ListItem>
-      </List>
-      <Divider />
-      <List>
-          <ListItem>
-            <ListItemIcon><PersonIcon /></ListItemIcon>
-            <ListItemText secondary={
-                <React.Fragment>
-                    <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
-                    >
-                        Operador
-                    </Typography>
-                    <br/>
-                    {"ok"}
-                    <br/>
-                    {"11:30"}
-                </React.Fragment>} />
-          </ListItem>
-      </List>
-      <Divider />
-      <List className={classes.rtaList}>
-            <ListItem>
-                <ListItemText secondary={"Respuesta Validada: me llamo Cato"} />
-            </ListItem>
-      </List>
-      <Divider />
-      <List>
-          <ListItem>
-            <ListItemIcon><PersonIcon /></ListItemIcon>
-            <ListItemText secondary={
-                <React.Fragment>
-                    <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
-                    >
-                        Operador
-                    </Typography>
-                    <br/>
-                    {"Revisado"}
-                    <br/>
-                    {"11:40"}
-                </React.Fragment>} />
-          </ListItem>
-      </List>
-      <Divider />
+      {
+          pregunta.revisiones.length !== 0 ? 
+          <>
+          {
+              pregunta.revisiones.map((revision, index) => {
+                  return (
+                      <>
+                        {
+                           revision.observacion ? 
+                           <List key={index}>
+                            <ListItem>
+                              <ListItemIcon><PersonIcon /></ListItemIcon>
+                              <ListItemText secondary={
+                                  <React.Fragment>
+                                      <Typography
+                                          component="span"
+                                          variant="body2"
+                                          className={classes.inline}
+                                          color="textPrimary"
+                                      >
+                                      { revision.observacion.usuario+" - Supervisor" }
+                                      </Typography>
+                                      <br/>
+                                      { <strong>Observación:</strong> }
+                                      <br/>
+                                      { revision.observacion.mensaje }
+                                      <br/>
+                                      { getFechaHora(revision.observacion.created) }
+                                  </React.Fragment>
+                              } />
+                            </ListItem>
+                          </List>:null
+                        }
+                        {
+                          revision.respuestaValidada ? 
+                            <List key={index} style={{width:"300px", overflowX:"hidden"}}>
+                              <Divider />
+                              <ListItem>
+                                <ListItemIcon><PersonIcon /></ListItemIcon>
+                                <ListItemText secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            component="span"
+                                            variant="body2"
+                                            className={classes.inline}
+                                            color="textPrimary"
+                                        >
+                                        { revision.respuestaValidada.usuario+" - Operador" } 
+                                        </Typography>
+                                        <br/>
+                                        { <strong>Respuesta Validada:</strong> }
+                                        <br/>
+                                        { revision.respuestaValidada.value }
+                                        <br/>
+                                        { revision.respuestaValidada.created ? getFechaHora(revision.respuestaValidada.created) : null }
+                                    </React.Fragment>
+                                } />
+                              </ListItem>
+                          </List> : null
+                        }
+                        <Divider />
+                      </>
+                  )
+              })
+          }
+        </> : null
+      }
+      
+      {
+        props.rol !== "OPERADOR" ?
+            <div className="drawer__inputSection">
+                <textarea className="drawer__input" rows={5} placeholder={"Escriba su comentario..."} onChange={(event) => textAreaOnChange(event)} />
+                <Button onClick={revisarBtnClicked} className="drawer__inputBtun" >Enviar a Revisar</Button>
+            </div> 
+          :
+          null
+      }
 
-      <form className={classes.form}>
-            <input className={classes.input} type="text" placeholder="Escriba su comentario..." />
-      </form>
     </div>
   );
 
   return (
         <React.Fragment key={'right'}>
-          <Button className="drawer__btnObservacion" onClick={toggleDrawer('right', true)}>Observación</Button>
-          <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
+          {
+            props.rol !== "OPERADOR" ?
+                <Button className="drawer__btnObservacionSupervisor" onClick={toggleDrawer('right', true)}>Revisar</Button>
+            :
+                <Button className="drawer__btnObservacionOperador" onClick={toggleDrawer('right', true)}>Obervaciones</Button>
+          }
+          <Drawer  anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
             {list('right')}
           </Drawer>
         </React.Fragment>

@@ -124,6 +124,15 @@
     min-height: 123px;
 }
 
+.marginBottom5px{
+    margin-bottom: 5px !important;
+}
+
+.pregunta__groupedContainer {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
 .pregunta__btnSectionEnRevision {
     display: flex;
     justify-content: flex-end;
@@ -170,6 +179,23 @@
     padding: 5px;
     text-align: center;
     text-decoration: none !important;
+}
+
+.nav_aprobarBtnNoDisponible {
+    color: gray !important;
+    background-color: #fff !important;
+    border-color: gray !important;
+    opacity: 0.5  !important;
+    margin-left: 10px;
+}
+
+.nav_aprobarBtnNoDisponible:hover {
+    color: gray;
+    background-color: #fff;
+    border-color: gray;
+    opacity: 0.5;
+    margin-left: 10px;
+    cursor: no-drop !important;
 }
 
 .pregunta__btnAprobar:hover {

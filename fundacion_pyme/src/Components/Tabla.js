@@ -1,66 +1,5 @@
-// import React from 'react';
-// import './Tabla.css';
-// import { Table } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import encuestas from '../data-table.json'
-// import eye from './images/eye-solid.svg'
-// import { Link } from 'react-router-dom'
-// import listaDeEncuentas from '../lista_encuentas_la_posta.json';
-
-// const Tabla =()=>{
-//     return(
-//         <div className="table">
-//             <p className="table-title">Listado de Encuestas</p>
-//             <div style={{display:'flex', marginBottom:'30px'}}>
-//             <input type="text" placeholder="buscar encuesta" style={{padding:'8px 10px'}}/>
-//             </div>
-//         <Table  borderless hover responsive>
-//         <thead class="survey-table" style={{borderBottom: '1px solid #42526E', textAlign:'center'}}>
-//             <tr>
-//                 <th>Id</th>
-//                 <th>Nombre encuesta</th>
-//                 <th>Empresa</th>
-//                 <th>Estado</th>
-//                 <th>Creado</th>
-//                 <th>Modificado</th>
-//                 <th>Acciones</th>
-//             </tr>
-//         </thead>
-//         <tbody class="survey-table" style={{textAlign:'center'}}>
-//            {listaDeEncuentas.map (encuesta => {
-//                return (
-//                    <tr className="tabla__row" key={encuesta.id}>
-//                        <td>{encuesta.id}</td>
-//                        <td style={{textAlign:'left'}}>{encuesta.name}</td>
-//                        <td>{encuesta.company}</td>
-//                        <td>{encuesta.status}</td>
-//                        <td>{encuesta.created}</td>
-//                        <td>{encuesta.modified}</td>
-//                        <td>
-//                        <Link 
-//                             to={{pathname:"/detalle",
-//                                   state:{preguntas:encuesta.sections}
-//                                 }} 
-//                             style={{display:'flex', 
-//                                     alignItems:'center',
-//                                     textDecoration:'none'}}
-//                         >  
-//                            <img class="detail-eye" src={eye} alt="eye-solid.svg"/>
-//                            <p className="verDetalle">Ver detalle</p>
-//                        </Link>
-//                         </td>
-//                    </tr>
-//                )
-//            })}
-//         </tbody>
-//     </Table>
-//     </div>
-//     )
-// }
-
-// export default Tabla
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -70,9 +9,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import listaDeEncuentas from '../lista_encuentas_la_posta.json';
 import { Link } from 'react-router-dom';
 import eye from './images/eye-solid.svg';
+import { decodeToken } from "react-jwt";
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 20 },
@@ -102,21 +41,16 @@ const columns = [
     align: 'center',
   },
   {
-    id: 'accion',
+    id: 'sections',
     label: 'Acción',
     minWidth: 100,
     align: 'center',
   },
 ];
 
-function createData(id, name, empresa, estado, creado, modificado, accion) {
-  return { id, name, empresa, estado, creado, modificado, accion};
-}
-
-const rows = [];
-listaDeEncuentas.forEach(encuesta => {
-    rows.push(createData(encuesta.id, encuesta.name, encuesta.empresa, encuesta.status, encuesta.created, encuesta.modified, encuesta.sections));
-});
+function createData(id, name, empresa, estado, creado, modificado, sections) {
+  return { id, name, empresa, estado, creado, modificado, sections};
+};
 
 const useStyles = makeStyles({
   root: {
@@ -131,6 +65,7 @@ export default function StickyHeadTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [searchText, setSearchText] = useState('');
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -141,11 +76,51 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
+// https://obs-pyme-validacion-back.herokuapp.com/api/encuesta
+
+const [data, setData] = useState({rol:''});
+const [rows, setRows] = useState([]);
+
+useEffect(() => {
+  async function fetchData() {
+    let config = {
+      headers: {
+        Authorization: `Bearer `+localStorage.getItem('token'),
+      }
+    }
+    const response = await axios.get(`https://obs-pyme-validacion-back.herokuapp.com/api/encuesta`, config);
+    const encuestas = response.data;
+    const rows_list = []
+    encuestas.forEach(encuesta => {
+        var date = encuesta.modified.split("T", 1).toString();
+        const modifiedFullDate = date
+        date = encuesta.created.split("T", 1).toString();
+        const createdFullDate = date
+        const id = encuesta._id.slice(encuesta._id.length - 6)
+        rows_list.push(createData(id, encuesta.name, encuesta.company.name, encuesta.status, createdFullDate, modifiedFullDate, encuesta._id));
+    })
+    setRows(rows_list);
+    setData(encuestas);
+  }
+  fetchData();
+}, []);
+
+const tokenData = decodeToken(localStorage.getItem('token'));
+const rol = tokenData.role;
+
   return (
     <div className="table">
         <p className="table-title">Listado de Encuestas</p>
         <div style={{display:'flex', marginBottom:'30px'}}>
-            <input type="text" placeholder="buscar encuesta" style={{padding:'8px 10px'}}/>
+            <input 
+                type="text" 
+                placeholder="Buscar encuesta" 
+                style={{padding:'8px 10px', 
+                borderRadius:'5px 0 0 5px', outline:'none'}} 
+                value={searchText}
+                onChange={(event)=>setSearchText(event.target.value.toLowerCase())}
+              />
+            {/* <button style={{height:'37px', border:'none', backgroundColor:'#42536E', color:'white', padding:'0 20px', borderRadius:'0 5px 5px 0'}}>Buscar</button> */}
         </div>
         <Paper className={classes.root}>
         <TableContainer className={classes.container}>
@@ -164,39 +139,85 @@ export default function StickyHeadTable() {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                        const value = row[column.id];
-                        if (column.id !== 'accion') {
-                            return (            
-                                <TableCell key={column.id} align={column.align}>
-                                    {value}
-                                </TableCell>
-                                );
-                        }else{
-                            return (
-                                <TableCell key={column.id} align={column.align}>
-                                    <Link 
-                                        to={{pathname:"/detalle",
-                                            preguntas:value
-                                        }} 
-                                        style={{display:'flex', 
-                                                alignItems:'center',
-                                                textDecoration:'none',
-                                                marginLeft:'20px'}}
-                                        >  
-                                            <img class="detail-eye" src={eye} alt="eye-solid.svg"/>
-                                            <p className="verDetalle">Ver detalle</p>
-                                    </Link>
-                                </TableCell>
-                            );
-                        }
-                    })}
-                    </TableRow>
-                );
-                })}
+              {
+                rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  if ( row['name'].toLowerCase().includes(searchText) || row['id'].toLowerCase().includes(searchText) || 
+                       row['empresa'].toLowerCase().includes(searchText) || row['estado'].toLowerCase().includes(searchText) ||
+                       row['creado'].toLowerCase().includes(searchText) || row['modificado'].toLowerCase().includes(searchText) ){
+                         if ( rol !== "OPERADOR" ){
+                          return (
+                            <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                            {columns.map((column) => {
+                                const value = row[column.id];
+                                if (column.id !== 'sections') {
+                                    return (            
+                                        <TableCell key={column.id} align={column.align}>
+                                            {value}
+                                        </TableCell>
+                                        );
+                                }else{
+                                    return (
+                                        <TableCell key={column.id} align={column.align}>
+                                            <Link 
+                                                to={{pathname:"/detalle",
+                                                     state:{ idEncuesta:value }
+                                                }} 
+                                                style={{display:'flex', 
+                                                        alignItems:'center',
+                                                        textDecoration:'none',
+                                                        marginLeft:'20px'}}
+                                                >  
+                                                    <img className="detail-eye" src={eye} alt="eye-solid.svg"/>
+                                                    <p className="verDetalle">Ver detalle</p>
+                                            </Link>
+                                        </TableCell>
+                                    );
+                                }
+                            })}
+                            </TableRow>
+                          );
+                         }else{
+                            if ( row['estado'] === "REVISION" ){
+                              return (              
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                {columns.map((column) => {
+                                    const value = row[column.id];
+                                    if (column.id !== 'sections') {
+                                        return (            
+                                            <TableCell key={column.id} align={column.align}>
+                                                {value}
+                                            </TableCell>
+                                            );
+                                    }else{
+                                        return (
+                                            <TableCell key={column.id} align={column.align}>
+                                                <Link 
+                                                    to={{pathname:"/detalle",
+                                                         state:{ idEncuesta:value }
+                                                    }} 
+                                                    style={{display:'flex', 
+                                                            alignItems:'center',
+                                                            textDecoration:'none',
+                                                            marginLeft:'20px'}}
+                                                    >  
+                                                        <img className="detail-eye" src={eye} alt="eye-solid.svg"/>
+                                                        <p className="verDetalle">Ver detalle</p>
+                                                </Link>
+                                            </TableCell>
+                                        );
+                                    }
+                                })}
+                                </TableRow>
+                              );
+                            }else{
+                                return null
+                            }
+                
+                         }
+                  }
+                  return null
+                })
+              }
             </TableBody>
             </Table>
         </TableContainer>

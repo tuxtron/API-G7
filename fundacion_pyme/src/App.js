@@ -1,68 +1,111 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import Pregunta from './Components/Pregunta';
+import React, { useState, useEffect } from 'react';
+import { Redirect, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { isExpired, decodeToken } from "react-jwt";
 import NavCuestionario from './Components/NavCuestionario';
 import Tabla from './Components/Tabla';
 import Sidebar from './Components/Sidebar';
 import Usuarios from './Components/Usuarios';
-import AltaUsuario from './Components/altaUsuario'
-import Login from './Components/login'
-
+import AltaUsuario from './Components/altaUsuario';
+import Login from './Components/login';
+import Perfil from './Components/Perfil';
 import './App.css';
-import listaDePreguntas from './listaDePreguntas.json';
-import listaDeEncuentas from './lista_encuentas_la_posta.json';
 
 function App() {
 
   const [state, setState] = useState({
-      isSupervisor:true,
+    isSupervisor: true,
+    effect: ''
   });
 
+  const checkSessionExpiration = () => {
+    const isMyTokenExpired = isExpired(localStorage.getItem('token'));
+    console.log("Sesión Expirada: ", isMyTokenExpired)
+    return isMyTokenExpired;
+  }
+
+  useEffect(()=> {
+      checkSessionExpiration();
+      const tokenData = decodeToken(localStorage.getItem('token'));
+      setState({...state, userInfo: tokenData})
+  }, [])
 
   return (
     <Router>
           <div className="App">
           <Switch>
-              <Route path="/home"> 
-                  <div className="app__home">
-                    <Sidebar isSupervisor={state.isSupervisor}/>
-                    <Tabla/>
-                  </div>
+              <Route path="/home" render={()=> (
+                !checkSessionExpiration() ? (
+                    <div className="app__home">
+                      <Sidebar user={state.userInfo} />
+                      <Tabla/>
+                    </div> 
+                  ) : ( 
+                    <>
+                        { localStorage.removeItem('token') }
+                       <Redirect to="/login" />
+                    </>)
+              )}> 
               </Route>
-              <Route path="/usuarios"> 
-                  <div className="app__home">
-                    <Sidebar isSupervisor={state.isSupervisor}/>
-                    <Usuarios />
-                  </div>
+              <Route path="/usuarios" render={()=> (
+                  !checkSessionExpiration() ? (
+                      <div className="app__home">
+                          <Sidebar user={state.userInfo}/>
+                          <Usuarios />
+                      </div>
+                  ) : (
+                    <>
+                        { localStorage.removeItem('token') }
+                       <Redirect to="/login" />
+                    </>
+                  )
+              )}> 
               </Route>
-              <Route path="/altaUsuario"> 
-                  <div className="app__home">
-                    <Sidebar isSupervisor={state.isSupervisor}/>
-                    <AltaUsuario />
-                  </div>
-              </Route>
-              <Route path="/detalle">
-                <div className="app__home">
-                <Sidebar isSupervisor={state.isSupervisor}/>
-                    <div className="app__navPregunta">
-                    <NavCuestionario 
-                    isSupervisor={state.isSupervisor}>
-                      {
-                          listaDePreguntas.map((pregunta, index) => {
-                                return  <Pregunta 
-                                          key={index}
-                                          objPregunta={pregunta}
-                                          isSupervisor={state.isSupervisor} />
-                          })
-                      }
-                    </NavCuestionario>
+              <Route path="/perfil" render={()=>(
+                !checkSessionExpiration() ? (
+                    <div className="app__home">
+                        <Sidebar user={state.userInfo}/>
+                        <Perfil />
                     </div>
-                </div>
-            </Route>
-            <Route path="/nav">
-              <NavCuestionario 
-                isSupervisor={state.isSupervisor}>Preguntas</NavCuestionario>
+                ) : (
+                  <>
+                    { localStorage.removeItem('token') }
+                    <Redirect to="/login" />
+                  </>    
+                )
+              )}> 
+            
+              </Route>
+              <Route path="/altaUsuario" render={()=>(
+                    !checkSessionExpiration() ? (
+                        <div className="app__home">
+                            <Sidebar user={state.userInfo}/>
+                            <AltaUsuario />
+                        </div>
+                    ) : (
+                      <>
+                        { localStorage.removeItem('token') }
+                        <Redirect to="/login" />
+                      </> 
+                    )
+              )}> 
+              </Route>
+              <Route path="/detalle" render={()=>(
+                 !checkSessionExpiration() ? (
+                    <div className="app__home">
+                        <Sidebar user={state.userInfo}/>
+                            <div className="app__navPregunta">
+                                <NavCuestionario 
+                                    user={state.userInfo}>
+                                </NavCuestionario>
+                            </div>
+                    </div>
+                 ) : (
+                  <>
+                      { localStorage.removeItem('token') }
+                    <Redirect to="/login" />
+                  </> 
+                 )  
+              )}>
             </Route>
               <Route path="/"> 
                  <Login />

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import './Modal.css';
-import { Link } from 'react-router-dom'
 
 
 export class ModalUsuario extends Component {

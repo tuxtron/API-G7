@@ -1,3 +1,54 @@
+.table {
+    width: 100% !important;
+    height: 100vh !important;
+    padding: 50px 80px !important;
+    overflow-y: scroll !important;
+}
+
+.table-title {
+    font: normal normal bold 25px/40px Centra No2 !important;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    display: block;
+    margin-bottom: 30px;
+}
+
+.survey-table{
+    font-family: Helvetica;
+    font-size: 21x;
+    color: #000000BF;
+}
+
+.survey-table > th > tr {
+    text-align: center;
+    font: normal normal bold 21px/27px Centra No2;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+
+.tabla__row{
+    max-height: 20px;
+}
+
+.detail-eye{
+    margin-right: 5px;
+    height: 14px;
+    opacity: 4;
+    color:#777474;
+}
+
+.verDetalle {
+    margin-bottom: 0px;
+}
+
+@media (max-width: 960px) {
+    .table {
+        padding: 40px 40px;
+    }
+}
+
 .pregunta__btnAprobar {
     width: auto;
     height: 34px;
@@ -32,4 +83,15 @@
     border: 1px solid red;
     background-color: #fff;
     color: red;
+}
+
+.buttonAlta {
+    background-color: #41546E !important;
+    color: white !important;
+}
+
+.buttonAlta:hover {
+    background-color: white !important;
+    color: #41546E !important;
+    border: 1px solid #41546E;
 }

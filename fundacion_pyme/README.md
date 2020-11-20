@@ -11,6 +11,8 @@ npm i @fortawesome/react-fontawesome
 npm install formik
 npm install email-validator
 npm install yup
+npm install axios
+npm i react-jwt
 
 / START PROJECT
 npm start

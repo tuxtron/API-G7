@@ -1,80 +1,119 @@
-import React from "react";
+import React, { useState } from 'react'
 import { Formik } from "formik";
-import { Link } from "react-router-dom";
-// import * as EmailValidator from "email-validator";
+import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import axios from 'axios';
 import "./Login.css";
+import { decodeToken } from 'react-jwt';
 
-const ValidatedLoginForm = () => (
-    <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-                console.log("Iniciando Sesion", values);
-                console.log("Iniciando Sesion", values);
-                setSubmitting(false);
-            }, 500);
-        }}
-        validationSchema={Yup.object().shape({
-            email: Yup.string()
-                .email("Ingrese un email valido.")
-                .required("Obligatorio"),
-            password: Yup.string()
-                .required("Obligatorio.")
-                .min(6, "Su clave es muy corta. Necesita al menos 6 caracteres")
-        })}
+function Login() {
 
-    >
-        {props => {
-            const {
-                values,
-                touched,
-                errors,
-                isSubmitting,
-                handleChange,
-                handleBlur,
-                handleSubmit
-            } = props;
-            return (
-                <div className="pantallaLogin">
-                <form className="loginForm" onSubmit={handleSubmit}>
-                    <img src={require("./images/fundacionObsPymeLogo.png")} alt="logo" className="logo" />
-                    <label htmlFor="email">Email</label>
-                    <input
-                        name="email"
-                        type="text"
-                        placeholder="Ingrese su direccion de email"
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={errors.email && touched.email && "error"}
-                    />
-                    {errors.email && touched.email && (
-                        <div className="input-feedback">{errors.email}</div>
-                    )}
-                    <label style={{marginTop:'20px'}} htmlFor="email">Password</label>
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Ingrese su clave"
-                        value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={errors.password && touched.password && "error"}
-                    />
-                    {errors.password && touched.password && (
-                        <div className="input-feedback">{errors.password}</div>
-                    )}
-                    <Link className="iniciarSesionBtn" to="/home" style={{marginTop:'20px'}} type="submit" disabled={isSubmitting}>
-                        Iniciar Sesion
-                    </Link>
-                </form>
-                </div>
-            );
-        }}
-    </Formik>
-);
+    const [state, setState] = useState({
+        username: '',
+        password: ''
+    })
 
+    const iniciarSesionClicked = () => {
+        login(state.username, state.password);
+    }
 
+    const history = useHistory();
 
-export default ValidatedLoginForm;
+    async function login(user, password) {
+        const data = {
+            username: user,
+            contraseña: password
+        }
+        let config = {
+            headers: {
+              Authorization: `Bearer `+localStorage.getItem('token'),
+            }
+          }
+        await axios.post(`https://obs-pyme-validacion-back.herokuapp.com/api/login`, data, config)
+            .then( response => { 
+                console.log(response) 
+                localStorage.removeItem('username');
+                localStorage.removeItem('token');
+                localStorage.setItem('username', state.username);
+                const token = response.data.token;
+                localStorage.setItem('token', token);
+                console.log("Sesion: ", localStorage.getItem('username'))
+                const tokenData = decodeToken(token);
+                const rol = tokenData.role;
+                console.log(rol)
+                if (rol === "ADMINISTRADOR") {
+                    history.push('/usuarios')
+                }else {
+                    history.push('/home');
+                }
+            })
+            .catch( error => { 
+                alert('Usuario o contraseña inválido... Por favor, Reintente con otra combinación')
+                console.log(error)
+             })
+    }
+
+    return (
+        <div>
+            <Formik
+                validationSchema={Yup.object().shape({
+                    email: Yup.string()
+                        .email("Ingrese un email valido.")
+                        .required("Obligatorio"),
+                    // password: Yup.string()
+                    //     .required("Obligatorio.")
+                    //     .min(6, "Su clave es muy corta. Necesita al menos 6 caracteres")
+                })}
+
+            >
+                {props => {
+                    const {
+                        touched,
+                        errors,
+                        isSubmitting,
+                        handleBlur,
+                        handleSubmit
+                    } = props;
+                    return (
+                        <div className="pantallaLogin">
+                        <form className="loginForm" onSubmit={handleSubmit}>
+                            <img src={require("./images/fundacionObsPymeLogo.png")} alt="logo" className="logo" />
+                            <label htmlFor="email">Email</label>
+                            <input
+                                name="user"
+                                type="text"
+                                placeholder="Ingrese su usuario"
+                                value={state.username}
+                                onChange={(e)=>setState({...state, username:e.target.value})}
+                                onBlur={handleBlur}
+                                className={errors.email && touched.email && "error"}
+                            />
+                            {errors.email && touched.email && (
+                                <div className="input-feedback">{errors.email}</div>
+                            )}
+                            <label style={{marginTop:'20px'}} htmlFor="email">Password</label>
+                            <input
+                                name="password"
+                                type="password"
+                                placeholder="Ingrese su clave"
+                                value={state.password}
+                                onChange={(e)=>setState({...state, password:e.target.value})}
+                                onBlur={handleBlur}
+                                className={errors.password && touched.password && "error"}
+                            />
+                            {errors.password && touched.password && (
+                                <div className="input-feedback">{errors.password}</div>
+                            )}
+                            <Link className="iniciarSesionBtn" onClick={iniciarSesionClicked} style={{marginTop:'20px'}} type="submit" disabled={isSubmitting}>
+                                Iniciar Sesion
+                            </Link>
+                        </form>
+                        </div>
+                    );
+                }}
+            </Formik>
+        </div>
+    )
+}
+
+export default Login
