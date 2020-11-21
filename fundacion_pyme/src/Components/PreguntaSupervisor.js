@@ -63,7 +63,7 @@ function Pregunta(props) {
                 return (
                         <Form.Group style={{marginRight:"5px"}} className="pregunta__formGroupContainer">
                         { 
-                            pregunta.questions.map((resultado, index) => {
+                            pregunta.options.map((resultado, index) => {
                                 return <Form.Check 
                                             key={index}
                                             type="checkbox" 
@@ -89,7 +89,7 @@ function Pregunta(props) {
                     <Form.Group style={{marginRight:"5px"}} className="pregunta__formGroupContainer">
                         <Form.Control className="pregunta__desplegableItem" as="select" defaultValue={pregunta.questions[parseInt(pregunta.value)-1] } disabled>
                             {
-                                pregunta.questions.map((resultado, index)=>{
+                                pregunta.options.map((resultado, index)=>{
                                     return <option key={index}>{resultado}</option>
                                 })
                             }
@@ -99,7 +99,7 @@ function Pregunta(props) {
             case "FILE":
                 return (
                     <div style={{marginRight:"5px"}} className="pregunta__inputRespuestaContainer">
-                        <a href={ state.estado !== "VALIDADA" ? pregunta.lastValue : pregunta.value }>Archivo Subido (Clic para descargar)</a>
+                        <a href={ pregunta.value }>Archivo Subido</a>
                     </div>
                 )
             case "GROUPED":
@@ -179,9 +179,9 @@ function Pregunta(props) {
         switch (pregunta.type) {
             case "CHOICE":
                 return (
-                        <Form.Group className="pregunta__formGroupContainer"> 
+                        <Form.Group className="pregunta__formGroupContainer" style={{width:"auto"}}> 
                         { 
-                            pregunta.questions.map((resultado, index) => {
+                            pregunta.options.map((resultado, index) => {
                                 return <Form.Check 
                                             key={index}
                                             type="checkbox" 
@@ -197,7 +197,7 @@ function Pregunta(props) {
                 )
             case "NUMBER":
                 return (
-                        <input className="pregunta__inputRespuestaContainer" type="number" />
+                        <input className="pregunta__inputRespuestaContainer" type="number" /> 
                 )
             case "SELECT":
                 return (
@@ -205,7 +205,7 @@ function Pregunta(props) {
                             <Form.Control className="pregunta__desplegableItem" as="select" defaultValue={pregunta.lastValue ? pregunta.options[parseInt(pregunta.lastValue)-1]:null}>
                                 <option>Seleccionar</option>
                                 {
-                                    pregunta.questions.map((resultado, index)=>{
+                                    pregunta.options.map((resultado, index)=>{
                                         return <option key={index}>{resultado}</option>
                                     })
                                 }
@@ -214,7 +214,25 @@ function Pregunta(props) {
                 )
             case "FILE":
                 return (
-                    <input className="pregunta__inputRespuestaContainer" type="file" name="archivo" />
+                    <>
+                        {
+                            state.estado !== "VALIDADA" ?
+                            <>  
+                            <input className="pregunta__inputRespuestaContainer" type="file" name="archivo" />
+                            {
+                                pregunta.lastValue ? 
+                                <div className="pregunta__inputRespuestaContainer">
+                                    <a href={ pregunta.lastValue }>Archivo Validado</a>
+                                </div>
+                                : null
+                            }
+                            </>
+                            : 
+                            <div className="pregunta__inputRespuestaContainer">
+                                <a href={ pregunta.lastValue }>Archivo Validado</a>
+                            </div>
+                        }
+                    </>
                 )
             case "GROUPED":
                 return (
@@ -226,7 +244,7 @@ function Pregunta(props) {
                                         return (
                                                 <Form.Group className="pregunta__formGroupContainer marginBottom5px"> 
                                                 { 
-                                                    question.option.map((resultado, index) => {
+                                                    question.options.map((resultado, index) => {
                                                         return <Form.Check 
                                                                     key={index}
                                                                     type="checkbox" 
@@ -250,7 +268,7 @@ function Pregunta(props) {
                                                     <Form.Control className="pregunta__desplegableItem" as="select" defaultValue={question.lastValue}>
                                                         <option>Seleccionar</option>
                                                         {
-                                                            question.option.map((resultado, index)=>{
+                                                            question.options.map((resultado, index)=>{
                                                                 return <option key={index}>{resultado}</option>
                                                             })
                                                         }

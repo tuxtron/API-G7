@@ -56,7 +56,7 @@ class NavCuestionario extends Component {
       if (this.state.objEncuesta) {
           const encuesta = this.state.objEncuesta;
           encuesta.sections.forEach(section => {
-                section.options.forEach(question => {
+                section.questions.forEach(question => {
                     if (question.status === 'PENDIENTE'){
                         this.setState({...this.state, addModalShow : false, encuestaEnviableParaRevison: false});
                     }
@@ -90,7 +90,7 @@ class NavCuestionario extends Component {
           const encuesta = this.state.objEncuesta;
           encuesta.sections.forEach(section => {
                 this.setState({...this.state, encuestaEnviableParaAprobar: true});
-                section.options.forEach((question) => {                  
+                section.questions.forEach((question) => {                  
                     if (question.status !== 'APROBADA'){
                         this.setState({...this.state, encuestaEnviableParaAprobar: false});
                     }
@@ -143,7 +143,7 @@ class NavCuestionario extends Component {
         const encuesta = this.state.objEncuesta;
         encuesta.sections.forEach(section => {
               this.setState({...this.state, encuestaEnviableParaValidar: true});
-              section.options.forEach((question) => {                  
+              section.questions.forEach((question) => {                  
                   if (question.status === 'REVISION' ){
                       this.setState({...this.state, encuestaEnviableParaValidar: false});
                   }
@@ -207,7 +207,7 @@ class NavCuestionario extends Component {
                       <p>{section.description}</p>
                       {
                         this.state.rol === 'SUPERVISOR' || this.state.rol === 'ADMINISTRADOR' ? 
-                        section.options.map((pregunta, index) => {
+                        section.questions.map((pregunta, index) => {
                             return <PreguntaSupervisor
                                       key={pregunta._id}
                                       numId={ index }
@@ -219,7 +219,7 @@ class NavCuestionario extends Component {
                       }
                       {
                         this.state.rol === 'OPERADOR' ? 
-                          section.options.map((pregunta, index) => {
+                          section.questions.map((pregunta, index) => {
                             if (pregunta.status === "REVISION") {
                               
                                 return <PreguntaOperador
