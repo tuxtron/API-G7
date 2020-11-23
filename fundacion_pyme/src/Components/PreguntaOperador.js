@@ -141,13 +141,13 @@ function Pregunta(props) {
                 return (
                         <Form.Group className="pregunta__formGroupContainer">
                         { 
-                            pregunta.questions.map((resultado, index) => {
+                            pregunta.options.map((resultado, index) => {
                                 return <Form.Check 
                                             key={index}
                                             type="checkbox" 
                                             label={resultado}
                                             name="choiceRadio"
-                                            id={index} 
+                                            id={index+1} 
                                             defaultChecked={ parseInt(pregunta.value)-1 === index }
                                             disabled
                                             className="product__choiceItem"
@@ -165,10 +165,10 @@ function Pregunta(props) {
             case "SELECT":
                 return (
                     <Form.Group className="pregunta__formGroupContainer">
-                        <Form.Control className="pregunta__desplegableItem" as="select" defaultValue={pregunta.questions[parseInt(pregunta.value)-1]} disabled>
+                        <Form.Control className="pregunta__desplegableItem" as="select" defaultValue={pregunta.options[parseInt(pregunta.value)-1]} disabled>
                             {
-                                pregunta.questions.map((resultado, index)=>{
-                                    return <option key={index}>{resultado}</option>
+                                pregunta.options.map((resultado, index)=>{
+                                    return <option key={index+1}>{resultado}</option>
                                 })
                             }
                         </Form.Control>
@@ -197,7 +197,7 @@ function Pregunta(props) {
                                                                         type="checkbox" 
                                                                         label={resultado}
                                                                         name="choiceRadio"
-                                                                        id={index} 
+                                                                        id={index+1} 
                                                                         defaultChecked={ parseInt(question.value)-1 === index }
                                                                         disabled
                                                                         className="product__choiceItem"
@@ -221,7 +221,7 @@ function Pregunta(props) {
                                                     <Form.Control className="pregunta__desplegableItem" as="select" defaultValue={question.options[parseInt(pregunta.value)-1]} disabled>
                                                         {
                                                             question.options.map((resultado, index)=>{
-                                                                return <option key={index}>{resultado}</option>
+                                                                return <option key={index+1}>{resultado}</option>
                                                             })
                                                         }
                                                     </Form.Control>
@@ -259,16 +259,16 @@ function Pregunta(props) {
                 return (
                         <Form.Group className="pregunta__formGroupContainer"> 
                         { 
-                            pregunta.questions.map((resultado, index) => {
+                            pregunta.options.map((resultado, index) => {
                                 return <Form.Check 
-                                            key={index}
+                                            key={index+1}
                                             type="radio" 
                                             label={resultado}
-                                            defaultChecked={ state.resultado ? parseInt(state.resultado)-1 === index : null }
+                                            // defaultChecked={ state.resultado ? parseInt(state.resultado)-1 === index : null }
                                             name="choiceRadio"
-                                            id={index} 
+                                            id={index+1} 
                                             className="product__choiceItem"
-                                            value={index}
+                                            value={index+1}
                                             onChange={ (event) => setState({...state, resultado: event.target.value}) }
                                         />
                             })
@@ -287,8 +287,8 @@ function Pregunta(props) {
                             <Form.Control className="pregunta__desplegableItem" as="select"  onChange={ (event) => setState({...state, resultado: event.target.value}) } >
                                 <option>Seleccionar</option>
                                 {
-                                    pregunta.questions.map((resultado, index)=>{
-                                        return <option key={index}>{resultado}</option>
+                                    pregunta.options.map((resultado, index)=>{
+                                        return <option key={index+1} value={index+1}>{resultado}</option>
                                     })
                                 }
                             </Form.Control>
@@ -316,7 +316,7 @@ function Pregunta(props) {
                                                                     name="choiceRadio"
                                                                     id={index} 
                                                                     className="product__choiceItem"
-                                                                    value={index}
+                                                                    value={index+1}
                                                                     onChange={ event => groupedResultadoChanged(event, i) }
                                                             
                                                                 />
@@ -335,7 +335,7 @@ function Pregunta(props) {
                                                         <option>Seleccionar</option>
                                                         {
                                                             question.option.map((resultado, index)=>{
-                                                                return <option key={index}>{resultado}</option>
+                                                                return <option key={index+1} value={index+1} >{resultado}</option>
                                                             })
                                                         }
                                                     </Form.Control>
@@ -389,10 +389,6 @@ function Pregunta(props) {
                     { getResultByType()    }
                     { getEditableResultByType() }
                 </div>
-                {/* <div className="pregunta__observacion">
-                    <p>Observación: <br />
-                    { pregunta.revisiones ? pregunta.revisiones : "-" }</p>
-                </div> */}
                 <div className="pregunta__btnSectionEnRevision">
                     <Drawer pregunta={pregunta} rol={state.rol} />
                     <button className="pregunta__btnValidar" onClick={validarBtnClicked} >Validar</button>

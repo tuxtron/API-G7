@@ -18,7 +18,8 @@ class NavCuestionario extends Component {
     this.state = {
       addModalShow : false,
       modalType: "",
-      encuestaEnviableParaRevison: true,
+      encuestaEnviableParaRevision: true,
+      existePreguntaARevisar: false,
       encuestaEnviableParaAprobar: true,
       encuestaEnviableParaValidar: true,
       statusPreguntas: [],
@@ -37,6 +38,7 @@ class NavCuestionario extends Component {
     var response = await axios.get(`https://obs-pyme-validacion-back.herokuapp.com/api/encuesta/${idEncuesta}`, config);
     const encuestas = response.data;
     this.setState({...this.state, objEncuesta:encuestas[0]});
+    console.log("data: ", this.state.objEncuesta)
      axios.get(`https://obs-pyme-validacion-back.herokuapp.com/api/usuario`, config)
       .then( res => { 
           console.log(res) 
@@ -53,17 +55,24 @@ class NavCuestionario extends Component {
   addModalClose =() => this.setState({...this.state, addModalShow : false});
 
   revisarBtnClicked = () => {
+    this.fetchData().then(()=>{
       if (this.state.objEncuesta) {
-          const encuesta = this.state.objEncuesta;
-          encuesta.sections.forEach(section => {
-                section.questions.forEach(question => {
-                    if (question.status === 'PENDIENTE'){
-                        this.setState({...this.state, addModalShow : false, encuestaEnviableParaRevison: false});
-                    }
-                });
-          });
-        }
-      if (this.state.encuestaEnviableParaRevison) {
+        const encuesta = this.state.objEncuesta;
+        this.setState({...this.state, encuestaEnviableParaRevision: true});
+        this.setState({...this.state, existePreguntaARevisar: false});
+        encuesta.sections.forEach(section => {
+              section.questions.forEach((question) => {                  
+                  if (question.status === 'PENDIENTE'){
+                      this.setState({...this.state, encuestaEnviableParaRevision: false});
+                  }
+                  if (question.status === 'REVISION'){
+                    this.setState({...this.state, existePreguntaARevisar: true})
+                  }
+              });
+        });
+      }
+      console.log("Paso 2 revisión: enviable para revisión, ", this.state.encuestaEnviableParaRevision)
+      if (this.state.encuestaEnviableParaRevision && this.state.existePreguntaARevisar) {
           // FALTA PROBAR
           if(window.confirm('Desea enviar esta encuesta a revisar?')){
             let config = {
@@ -80,16 +89,17 @@ class NavCuestionario extends Component {
                   .catch( error => { console.log(error) })
           }
       }else{
-          alert('Existen preguntas que todavia estan PENDIENTES. Por favor aprobarlas o mandarlas a revisión antes de enviar esta encuesta a revisión.')
+          alert('Existen preguntas que todavia estan PENDIENTES o directamente no hay preguntas para REVISAR. \nPor favor aprobarlas o mandarlas a revisión antes de enviar esta encuesta a revisión.')
       }
-  }
+  })
+}
 
   aprobarBtnClicked = () => {
       this.fetchData().then(()=>{
         if (this.state.objEncuesta) {
           const encuesta = this.state.objEncuesta;
+          this.setState({...this.state, encuestaEnviableParaAprobar: true});
           encuesta.sections.forEach(section => {
-                this.setState({...this.state, encuestaEnviableParaAprobar: true});
                 section.questions.forEach((question) => {                  
                     if (question.status !== 'APROBADA'){
                         this.setState({...this.state, encuestaEnviableParaAprobar: false});
@@ -141,8 +151,8 @@ class NavCuestionario extends Component {
     this.fetchData().then(()=>{
       if (this.state.objEncuesta) {
         const encuesta = this.state.objEncuesta;
+        this.setState({...this.state, encuestaEnviableParaValidar: true});
         encuesta.sections.forEach(section => {
-              this.setState({...this.state, encuestaEnviableParaValidar: true});
               section.questions.forEach((question) => {                  
                   if (question.status === 'REVISION' ){
                       this.setState({...this.state, encuestaEnviableParaValidar: false});
@@ -167,7 +177,7 @@ class NavCuestionario extends Component {
                 .catch( error => { console.log(error) })
         }
       }else{
-          alert('Existen preguntas que todavia estan en REVISION. Por favor aprobarlas antes de aprobar esta encuesta.')
+          alert('Existen preguntas que todavia estan en REVISION. Por favor validarlas antes de aprobar esta encuesta.')
       }
       })
   }
@@ -203,8 +213,10 @@ class NavCuestionario extends Component {
              this.state.objEncuesta ?  this.state.objEncuesta.sections.map((section)=>{
                 return( 
                     <>
-                      <p>{section.title}</p>
-                      <p>{section.description}</p>
+                      <br/>
+                      <p style={{fontSize:"18px", marginLeft:"16px", color:"#42536E"}}><strong>{section.title}</strong></p>
+                      <p style={{fontSize:"18px", marginLeft:"16px", color:"#42536E"}}><strong>{section.description}</strong></p>
+                      <br/>
                       {
                         this.state.rol === 'SUPERVISOR' || this.state.rol === 'ADMINISTRADOR' ? 
                         section.questions.map((pregunta, index) => {

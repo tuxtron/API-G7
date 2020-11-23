@@ -197,7 +197,7 @@ function Pregunta(props) {
                 )
             case "NUMBER":
                 return (
-                        <input className="pregunta__inputRespuestaContainer" type="number" /> 
+                        <input style={{marginLeft:"0"}} className="pregunta__inputRespuestaContainer" type="number" value={pregunta.lastValue} /> 
                 )
             case "SELECT":
                 return (
@@ -316,8 +316,9 @@ function Pregunta(props) {
                         state.estado === "VALIDADA" ? <p className="pregunta__respuesta">Respuesta Validada</p> : null
                     }
                     <div className="pregunta__respuestaGeneral">
-                        {   state.estado === "APROBADA" ? null : getResultByType() }
-                        {   state.estado === "VALIDADA" || state.estado === "APROBADA" ? getEditableResultByType() : null  }
+                        {   (state.estado === "APROBADA" && pregunta.revisiones.length === 0 ) || state.estado === "VALIDADA" ? getResultByType() : null }
+                        {   state.estado === "VALIDADA" || (state.estado === "APROBADA" && pregunta.revisiones.length !==0) ? getEditableResultByType() : null  }
+                        {   (state.estado === "PENDIENTE" || state.estado === "REVISION") ? getResultByType() : null }
                     </div>
                     <div className={ state.estado === "VALIDADA" ? "pregunta__btnSectionEnRevision" : "pregunta__btnSectionAprobado"} >
                         <Drawer pregunta={pregunta} revisarBtnClicked={revisarBtnClicked} />
