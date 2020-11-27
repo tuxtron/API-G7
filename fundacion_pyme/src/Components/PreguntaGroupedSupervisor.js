@@ -6,7 +6,6 @@ import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Drawer from './Drawer';
 import axios from 'axios';
-import PreguntaGroupedSupervisor from './PreguntaGroupedSupervisor';
 
  
 function Pregunta(props) {
@@ -103,19 +102,7 @@ function Pregunta(props) {
                         <a href={ pregunta.value }>Archivo Subido</a>
                     </div>
                 )
-            case "GROUPED":
-                    return (
-                        <div className="pregunta__groupedContainer" style={{marginLeft:'0px'}}>
-                         { pregunta.questions.map((pregunta, index) => {
-                            return <PreguntaGroupedSupervisor
-                                      key={pregunta._id}
-                                      numId={ index }
-                                      objPregunta={pregunta}
-                                      //userRol={this.state.rol}
-                                   />
-                        }) }
-                        </div>
-                    )
+
             default:
                 // case "text" or other
                 return (
@@ -184,19 +171,6 @@ function Pregunta(props) {
                         }
                     </>
                 )
-                case "GROUPED":
-                    return (
-                        <div className="pregunta__groupedContainer" style={{marginLeft:'0px'}}>
-                         { pregunta.questions.map((pregunta, index) => {
-                            return <PreguntaGroupedSupervisor
-                                      key={pregunta._id}
-                                      numId={ index }
-                                      objPregunta={pregunta}
-                                      //userRol={this.state.rol}
-                                   />
-                        }) }
-                        </div>
-                    )
             default:
                 // case "text" or other
                 return (
