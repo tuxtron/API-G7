@@ -113,77 +113,77 @@ function Pregunta(props) {
     }
 
     const getEditableResultByType = () => {
-        switch (pregunta.type) {
-            case "CHOICE":
-                return (
-                        <Form.Group className="pregunta__formGroupContainer" style={{width:"auto"}}> 
-                        { 
-                            pregunta.options.map((resultado, index) => {
-                                return <Form.Check 
-                                            key={index}
-                                            type="checkbox" 
-                                            label={resultado}
-                                            name="choiceRadio"
-                                            id={index} 
-                                            className="product__choiceItem"
-                                            defaultChecked={ parseInt(pregunta.lastValue)-1 === index }
-                                        />
-                            })
-                        }
-                        </Form.Group>
-                )
-            case "NUMBER":
-                return (
-                        <input style={{marginLeft:"0"}} className="pregunta__inputRespuestaContainer" type="number" value={pregunta.lastValue} /> 
-                )
-            case "SELECT":
-                return (
-                        <Form.Group className="pregunta__formGroupContainer">
-                            <Form.Control className="pregunta__desplegableItem" as="select" defaultValue={pregunta.lastValue ? pregunta.options[parseInt(pregunta.lastValue)-1]:null}>
-                                <option>Seleccionar</option>
-                                {
-                                    pregunta.options.map((resultado, index)=>{
-                                        return <option key={index}>{resultado}</option>
-                                    })
-                                }
-                            </Form.Control>
-                        </Form.Group>
-                )
-            case "FILE":
-                return (
-                    <>
-                        {
-                            state.estado !== "VALIDADA" ?
-                            <>  
-                            <input className="pregunta__inputRespuestaContainer" type="file" name="archivo" />
+            switch (pregunta.type) {
+                case "CHOICE":
+                    return (
+                            <Form.Group className="pregunta__formGroupContainer" style={{width:"auto"}}> 
+                            { 
+                                pregunta.options.map((resultado, index) => {
+                                    return <Form.Check 
+                                                key={index}
+                                                type="checkbox" 
+                                                label={resultado}
+                                                name="choiceRadio"
+                                                id={index} 
+                                                className="product__choiceItem"
+                                                defaultChecked={ parseInt(pregunta.lastValue)-1 === index }
+                                            />
+                                })
+                            }
+                            </Form.Group>
+                    )
+                case "NUMBER":
+                    return (
+                            <input style={{marginLeft:"0"}} className="pregunta__inputRespuestaContainer" type="number" value={pregunta.lastValue} /> 
+                    )
+                case "SELECT":
+                    return (
+                            <Form.Group className="pregunta__formGroupContainer">
+                                <Form.Control className="pregunta__desplegableItem" as="select" defaultValue={pregunta.lastValue ? pregunta.options[parseInt(pregunta.lastValue)-1]:null}>
+                                    <option>Seleccionar</option>
+                                    {
+                                        pregunta.options.map((resultado, index)=>{
+                                            return <option key={index}>{resultado}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                    )
+                case "FILE":
+                    return (
+                        <>
                             {
-                                pregunta.lastValue ? 
+                                state.estado !== "VALIDADA" ?
+                                <>  
+                                <input className="pregunta__inputRespuestaContainer" type="file" name="archivo" />
+                                {
+                                    pregunta.lastValue ? 
+                                    <div className="pregunta__inputRespuestaContainer">
+                                        <a href={ pregunta.lastValue }>Archivo Validado</a>
+                                    </div>
+                                    : null
+                                }
+                                </>
+                                : 
                                 <div className="pregunta__inputRespuestaContainer">
                                     <a href={ pregunta.lastValue }>Archivo Validado</a>
                                 </div>
-                                : null
                             }
-                            </>
-                            : 
-                            <div className="pregunta__inputRespuestaContainer">
-                                <a href={ pregunta.lastValue }>Archivo Validado</a>
-                            </div>
-                        }
-                    </>
-                )
-            default:
-                // case "text" or other
-                return (
-                    <textarea  className="pregunta__respuestaContainer" value={pregunta.lastValue} />
-                )
-        }
+                        </>
+                    )
+                default:
+                    // case "text" or other
+                    return (
+                        <textarea  className="pregunta__respuestaContainer" value={pregunta.lastValue} />
+                    )
+            }
     }
 
     return (
         <>  
             { <div className="pregunta">
                 <div className="pregunta__header">
-                    <p className="pregunta__numero">Pregunta {props.numId + 1} { pregunta.mandatory ? "(*)" : null }</p>
+                    <p className="pregunta__numero">Item {props.idPreguntaPadre + "." + parseInt(props.numId + 1)} { pregunta.mandatory ? "(*)" : null }</p>
                     <p className="pregunta__sticker">
                         {   
                             getStickerByStatus()

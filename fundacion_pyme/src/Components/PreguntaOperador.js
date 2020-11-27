@@ -22,83 +22,90 @@ function Pregunta(props) {
     })
 
     const validarBtnClicked = () => {
-        setState({ ...state, estado: "VALIDADA" });
-        var revisiones = pregunta.revisiones;
-        var idUltimaRevision = '';
-        var fechaUltimaRevision = ''
-        revisiones.forEach((revision) => {
-            if (idUltimaRevision === '') {
-                idUltimaRevision = revision._id;
-                fechaUltimaRevision = revision.observacion.created;
-            } else {
-                var f1 = new Date(fechaUltimaRevision);
-                var f2 = new Date(revision.observacion.created);
-                if (f2 > f1) {
+        if( state.resultado ){
+            setState({ ...state, estado: "VALIDADA" });
+            var revisiones = pregunta.revisiones;
+            var idUltimaRevision = '';
+            var fechaUltimaRevision = ''
+            revisiones.forEach((revision) => {
+                if (idUltimaRevision === '') {
                     idUltimaRevision = revision._id;
                     fechaUltimaRevision = revision.observacion.created;
-                }
-            }
-            console.log(idUltimaRevision)
-        })
-        let configFile = {
-            headers: {
-                Authorization: `Bearer ` + localStorage.getItem('token'),
-                Accept: 'application/form-data'
-            }
-        }
-        var data = {
-            idPregunta: pregunta._id,
-            idRevision: idUltimaRevision,
-            revision: {
-                respuestaValidada: {
-                    usuario: localStorage.getItem('username'),
-                    value: state.resultado
-                }
-            }
-        }
-        if (pregunta.type === 'FILE') {
-            const form = new FormData();
-            form.append('files', state.resultado, state.resultado.name);
-            console.log(state.resultado, state.resultado.name);
-            console.log("form", form)
-            axios.post(`https://obs-pyme-validacion-back.herokuapp.com/api/upload`, form, configFile)
-                .then(res => {
-                    console.log(res)
-                    const config = {
-                        headers: {
-                            Authorization: `Bearer ` + localStorage.getItem('token')
-                        }
+                } else {
+                    var f1 = new Date(fechaUltimaRevision);
+                    var f2 = new Date(revision.observacion.created);
+                    if (f2 > f1) {
+                        idUltimaRevision = revision._id;
+                        fechaUltimaRevision = revision.observacion.created;
                     }
-                    data = {
-                        idPregunta: pregunta._id,
-                        idRevision: idUltimaRevision,
-                        revision: {
-                            respuestaValidada: {
-                                usuario: localStorage.getItem('username'),
-                                value: res.data.files[0].url
+                }
+                console.log(idUltimaRevision)
+            })
+            let configFile = {
+                headers: {
+                    Authorization: `Bearer ` + localStorage.getItem('token'),
+                    Accept: 'application/form-data'
+                }
+            }
+            var data = {
+                idPregunta: pregunta._id,
+                idRevision: idUltimaRevision,
+                revision: {
+                    respuestaValidada: {
+                        usuario: localStorage.getItem('username'),
+                        value: state.resultado
+                    }
+                }
+            }
+            if (pregunta.type === 'FILE') {
+                const form = new FormData();
+                form.append('files', state.resultado, state.resultado.name);
+                console.log(state.resultado, state.resultado.name);
+                console.log("form", form)
+                axios.post(`https://obs-pyme-validacion-back.herokuapp.com/api/upload`, form, configFile)
+                    .then(res => {
+                        console.log(res)
+                        const config = {
+                            headers: {
+                                Authorization: `Bearer ` + localStorage.getItem('token')
                             }
                         }
+                        data = {
+                            idPregunta: pregunta._id,
+                            idRevision: idUltimaRevision,
+                            revision: {
+                                respuestaValidada: {
+                                    usuario: localStorage.getItem('username'),
+                                    value: res.data.files[0].url
+                                }
+                            }
+                        }
+                        axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/pregunta/revision`, data, config)
+                            .then(response => {
+                                console.log(response)
+                            })
+                            .catch(error => { console.log(error) })
+                    })
+                    .catch(err => { 
+                        console.log(err)
+                        alert("Ha ocurrido un error, favor de intentar nuevamente...")
+                     })
+            } else {
+                console.log(idUltimaRevision);
+                console.log(data);
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ` + localStorage.getItem('token')
                     }
-                    axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/pregunta/revision`, data, config)
-                        .then(response => {
-                            console.log(response)
-                        })
-                        .catch(error => { console.log(error) })
-                })
-                .catch(err => { console.log(err) })
-        } else {
-            console.log(idUltimaRevision);
-            console.log(data);
-            const config = {
-                headers: {
-                    Authorization: `Bearer ` + localStorage.getItem('token')
                 }
+                axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/pregunta/revision`, data, config)
+                    .then(response => {
+                        console.log(response)
+                    })
+                    .catch(error => { console.log(error) })
             }
-            axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/pregunta/revision`, data, config)
-                .then(response => {
-                    console.log(response)
-                })
-                .catch(error => { console.log(error) })
+        }else{
+            alert('No se cargó ningun archivo para validar...');
         }
 
     }
@@ -191,6 +198,7 @@ function Pregunta(props) {
                                     key={pregunta._id}
                                     numId={index}
                                     objPregunta={pregunta}
+                                    idPreguntaPadre={props.numId+1}
                                 />
                             }
                             return null
@@ -254,7 +262,7 @@ function Pregunta(props) {
             case "GROUPED":
                 return (
                     <div className="pregunta__groupedContainer" style={{ marginLeft: '0px' }}>
-                        {pregunta.questions.map((pregunta, index) => {
+                        {/* {pregunta.questions.map((pregunta, index) => {
                             if (pregunta.status === "REVISION") {
 
                                 return <PreguntaGroupedOperador
@@ -264,7 +272,7 @@ function Pregunta(props) {
                                 />
                             }
                             return null
-                        })}
+                        })} */}
                     </div>
                 )
             default:
@@ -288,23 +296,35 @@ function Pregunta(props) {
                     <p className="pregunta__numero">Pregunta {props.numId + 1} {pregunta.mandatory ? "(*)" : null}</p>
                     <p className="pregunta__sticker">
                         {
+                            pregunta.type !== "GROUPED" ?
                             getStickerByStatus()
+                            : null
                         }
                     </p>
                 </div>
                 <div className="pregunta__descripcionContainer">
                     <p className="pregunta__descripcion">{pregunta.title}</p>
                 </div>
-                <p className="pregunta__respuesta">Respuesta</p>
-                <p className="pregunta__respuesta">Respuesta Validada</p>
+                {
+                    pregunta.type !== "GROUPED" ?
+                    <>
+                    <p className="pregunta__respuesta">Respuesta</p>
+                    <p className="pregunta__respuesta">Respuesta Validada</p>
+                    </>
+                    : <br/>
+                }
                 <div className="pregunta__respuestaGeneral">
                     {getResultByType()}
                     {getEditableResultByType()}
                 </div>
-                <div className="pregunta__btnSectionEnRevision">
-                    <Drawer pregunta={pregunta} rol={state.rol} />
-                    <button className="pregunta__btnValidar" onClick={validarBtnClicked} >Validar</button>
-                </div>
+                {
+                    pregunta.type !== "GROUPED" ?
+                    <div className="pregunta__btnSectionEnRevision">
+                        <Drawer pregunta={pregunta} rol={state.rol} />
+                        <button className="pregunta__btnValidar" onClick={validarBtnClicked} >Validar</button>
+                    </div>
+                    : null
+                }
             </div>
         </>
     )

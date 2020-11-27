@@ -62,18 +62,27 @@ class NavCuestionario extends Component {
         this.setState({...this.state, existePreguntaARevisar: false});
         encuesta.sections.forEach(section => {
               section.questions.forEach((question) => {                  
-                  if (question.status === 'PENDIENTE'){
+                  if (question.status === 'PENDIENTE' && question.type !== "GROUPED"){
                       this.setState({...this.state, encuestaEnviableParaRevision: false});
                   }
-                  if (question.status === 'REVISION'){
+                  if (question.status === 'REVISION' && question.type !== "GROUPED"){
                     this.setState({...this.state, existePreguntaARevisar: true})
+                  }
+                  if (question.type === "GROUPED") {
+                      question.questions.forEach( childQuestion => {
+                        if (childQuestion.status === 'PENDIENTE'){
+                          this.setState({...this.state, encuestaEnviableParaRevision: false});
+                        }
+                        if (childQuestion.status === 'REVISION'){
+                          this.setState({...this.state, existePreguntaARevisar: true})
+                        }
+                      })
                   }
               });
         });
       }
       console.log("Paso 2 revisión: enviable para revisión, ", this.state.encuestaEnviableParaRevision)
       if (this.state.encuestaEnviableParaRevision && this.state.existePreguntaARevisar) {
-          // FALTA PROBAR
           if(window.confirm('Desea enviar esta encuesta a revisar?')){
             let config = {
               headers: {
@@ -101,8 +110,15 @@ class NavCuestionario extends Component {
           this.setState({...this.state, encuestaEnviableParaAprobar: true});
           encuesta.sections.forEach(section => {
                 section.questions.forEach((question) => {                  
-                    if (question.status !== 'APROBADA'){
+                    if (question.status !== 'APROBADA' && question.type !== "GROUPED"){
                         this.setState({...this.state, encuestaEnviableParaAprobar: false});
+                    }
+                    if (question.type === "GROUPED"){
+                        question.questions.forEach( childQuestion => {
+                          if (childQuestion.status !== "APROBADA"){
+                             this.setState({...this.state, encuestaEnviableParaAprobar: false});
+                          } 
+                        })
                     }
                 });
           });
@@ -218,7 +234,7 @@ class NavCuestionario extends Component {
                       <p style={{fontSize:"18px", marginLeft:"16px", color:"#42536E"}}><strong>{section.description}</strong></p>
                       <br/>
                       {
-                        this.state.rol === 'SUPERVISOR' || this.state.rol === 'ADMINISTRADOR' ? 
+                        this.state.rol === 'SUPERVISOR' ? 
                         section.questions.map((pregunta, index) => {
                             return <PreguntaSupervisor
                                       key={pregunta._id}

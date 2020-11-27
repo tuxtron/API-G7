@@ -252,7 +252,7 @@ function Pregunta(props) {
         <>  
             <div className="pregunta">
                 <div className="pregunta__header">
-                <p className="pregunta__numero">Pregunta {props.numId + 1} { pregunta.mandatory ? "(*)" : null }</p>
+                <p className="pregunta__numero">Pregunta {props.idPreguntaPadre + "." + parseInt(props.numId + 1)} { pregunta.mandatory ? "(*)" : null }</p>
                     <p className="pregunta__sticker">
                         {   
                             getStickerByStatus()

@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Drawer from './Drawer';
 import axios from 'axios';
 import PreguntaGroupedSupervisor from './PreguntaGroupedSupervisor';
-
  
 function Pregunta(props) {
 
@@ -36,26 +35,28 @@ function Pregunta(props) {
                   .catch( error => { console.log(error) })
     }
 
+
     const getStickerByStatus = () => {
-        switch (state.estado) {
-            case "APROBADA":
-                return <>
-                          <img className="pregunta__hourglass" src={checksolid} alt="hourglass.svg"/>
-                          Aprobado
-                       </>
-            case "REVISION":
-                return <>
-                           <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
-                           En revisión
-                       </>
-            case "VALIDADA":
-                return <>
-                           <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
-                           Validada
-                       </>
-            default:
-                return null;
-        }
+
+            switch (state.estado) {
+                case "APROBADA":
+                    return <>
+                              <img className="pregunta__hourglass" src={checksolid} alt="hourglass.svg"/>
+                              Aprobado
+                           </>
+                case "REVISION":
+                    return <>
+                               <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
+                               En revisión
+                           </>
+                case "VALIDADA":
+                    return <>
+                               <img className="pregunta__hourglass" src={hourglass} alt="hourglass.svg"/>
+                               Validada
+                           </>
+                default:
+                    return null;
+            }
     }
 
     const getResultByType = () => {
@@ -106,11 +107,14 @@ function Pregunta(props) {
             case "GROUPED":
                     return (
                         <div className="pregunta__groupedContainer" style={{marginLeft:'0px'}}>
-                         { pregunta.questions.map((pregunta, index) => {
+                         { pregunta.questions.map((question, index) => {
+
                             return <PreguntaGroupedSupervisor
-                                      key={pregunta._id}
+                                      key={question._id}
                                       numId={ index }
-                                      objPregunta={pregunta}
+                                      objPregunta={question}
+                                      idPreguntaPadre={props.numId+1}
+                                      editable={false}
                                       //userRol={this.state.rol}
                                    />
                         }) }
@@ -187,14 +191,15 @@ function Pregunta(props) {
                 case "GROUPED":
                     return (
                         <div className="pregunta__groupedContainer" style={{marginLeft:'0px'}}>
-                         { pregunta.questions.map((pregunta, index) => {
+                         {/* { pregunta.questions.map((pregunta, index) => {
                             return <PreguntaGroupedSupervisor
                                       key={pregunta._id}
                                       numId={ index }
                                       objPregunta={pregunta}
+                                      editable={true}
                                       //userRol={this.state.rol}
                                    />
-                        }) }
+                        }) } */}
                         </div>
                     )
             default:
@@ -212,27 +217,37 @@ function Pregunta(props) {
                     <p className="pregunta__numero">Pregunta {props.numId + 1} { pregunta.mandatory ? "(*)" : null }</p>
                     <p className="pregunta__sticker">
                         {   
+                            pregunta.type !== "GROUPED" ?
                             getStickerByStatus()
+                            : null
                         }
                         </p>
                     </div>
                     <div className="pregunta__descripcionContainer">
                         <p className="pregunta__descripcion">{pregunta.title}</p>
                     </div>
-                    <p className="pregunta__respuesta">Respuesta</p>
                     {
-                        state.estado === "VALIDADA" ? <p className="pregunta__respuesta">Respuesta Validada</p> : null
+                        pregunta.type !== "GROUPED" ? 
+                        <>
+                        <p className="pregunta__respuesta">Respuesta</p>
+                        {
+                            state.estado === "VALIDADA" ? <p className="pregunta__respuesta">Respuesta Validada</p> : null
+                        }
+                        </>: <br/>
                     }
+    
                     <div className="pregunta__respuestaGeneral">
                         {   (state.estado === "APROBADA" && pregunta.revisiones.length === 0 ) || state.estado === "VALIDADA" ? getResultByType() : null }
                         {   state.estado === "VALIDADA" || (state.estado === "APROBADA" && pregunta.revisiones.length !==0) ? getEditableResultByType() : null  }
                         {   (state.estado === "PENDIENTE" || state.estado === "REVISION") ? getResultByType() : null }
                     </div>
-                    <div className={ state.estado === "VALIDADA" ? "pregunta__btnSectionEnRevision" : "pregunta__btnSectionAprobado"} >
-                        <Drawer pregunta={pregunta} revisarBtnClicked={revisarBtnClicked} />
-                        {/* <button className="pregunta__btnRevisar" onClick={revisarBtnClicked} >Revisar</button> */}
-                        <button className="pregunta__btnAprobar" onClick={aprobarBtnClicked}>Aprobar</button>
-                    </div>
+                    {
+                        pregunta.type !== "GROUPED" ?
+                        <div className={ state.estado === "VALIDADA" && pregunta.type !== "GROUPED" ? "pregunta__btnSectionEnRevision" : "pregunta__btnSectionAprobado"} >
+                            <Drawer pregunta={pregunta} revisarBtnClicked={revisarBtnClicked} />
+                            <button className="pregunta__btnAprobar" onClick={aprobarBtnClicked}>Aprobar</button>
+                        </div> : null
+                    }
                 </div> }
         </>
     )
