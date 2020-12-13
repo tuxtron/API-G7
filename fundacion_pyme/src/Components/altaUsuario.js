@@ -35,7 +35,6 @@ export default function AltaUsuario(props) {
                   }
                   axios.post(`https://obs-pyme-validacion-back.herokuapp.com/api/usuario`, data, config)
                         .then( (response) => {
-                                    console.log(response);
                                     alert('Usuario agregado!');
                                     history.push("/usuarios")
                                 })

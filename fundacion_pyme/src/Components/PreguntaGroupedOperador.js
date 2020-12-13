@@ -37,7 +37,6 @@ function Pregunta(props) {
                     fechaUltimaRevision = revision.observacion.created;
                 }
             }
-            console.log(idUltimaRevision)
         })
         let configFile = {
             headers: {
@@ -58,11 +57,8 @@ function Pregunta(props) {
         if( pregunta.type === 'FILE' ){
             const form = new FormData();
             form.append('files', state.resultado, state.resultado.name);
-            console.log(state.resultado, state.resultado.name);
-            console.log("form", form)
             axios.post(`https://obs-pyme-validacion-back.herokuapp.com/api/upload`, form, configFile)
                 .then( res => { 
-                    console.log(res)
                     const config = {
                         headers: {
                           Authorization: `Bearer `+localStorage.getItem('token')
@@ -86,8 +82,6 @@ function Pregunta(props) {
                  })
                 .catch( err => { console.log(err) })
         }else{
-            console.log(idUltimaRevision);
-            console.log(data);
             const config = {
                 headers: {
                   Authorization: `Bearer `+localStorage.getItem('token')
@@ -109,7 +103,6 @@ function Pregunta(props) {
     }, [])
 
     const onChangeHandler= (event) =>{
-        console.log(event.target.files[0]);
         setState({...state, resultado: event.target.files[0]})
     }
 

@@ -104,7 +104,6 @@ const deleteBtnClicked = (event) => {
     console.log(id)
     axios.delete(`https://obs-pyme-validacion-back.herokuapp.com/api/usuario/${id}`, config)
       .then(res => {
-          console.log("deleting... "+res.statusText)
           const newRows = rows.filter(function( obj ) {
             return obj.id !== id;
         });

@@ -19,7 +19,6 @@ function App() {
 
   const checkSessionExpiration = () => {
     const isMyTokenExpired = isExpired(localStorage.getItem('token'));
-    console.log("Sesión Expirada: ", isMyTokenExpired)
     return isMyTokenExpired;
   }
 

@@ -31,16 +31,13 @@ function Login() {
           }
         await axios.post(`https://obs-pyme-validacion-back.herokuapp.com/api/login`, data, config)
             .then( response => { 
-                console.log(response) 
                 localStorage.removeItem('username');
                 localStorage.removeItem('token');
                 localStorage.setItem('username', state.username);
                 const token = response.data.token;
                 localStorage.setItem('token', token);
-                console.log("Sesion: ", localStorage.getItem('username'))
                 const tokenData = decodeToken(token);
                 const rol = tokenData.role;
-                console.log(rol)
                 if (rol === "ADMINISTRADOR") {
                     history.push('/usuarios')
                 }else {
@@ -107,6 +104,8 @@ function Login() {
                             <Link className="iniciarSesionBtn" onClick={iniciarSesionClicked} style={{marginTop:'20px'}} type="submit" disabled={isSubmitting}>
                                 Iniciar Sesion
                             </Link>
+                            <br/><br/>
+                            <p style={{textAlign:'center'}}><strong>usuario: </strong>sup <strong>password: </strong>123</p>
                         </form>
                         </div>
                     );

@@ -17,8 +17,6 @@ function Perfil() {
     const history = useHistory();
      
     useEffect(() => {
-            // const myDecodeToken = decodeToken(localStorage.getItem('token'));
-            // console.log(myDecodeToken)
             let config = {
                 headers: {
                   Authorization: `Bearer `+localStorage.getItem('token'),
@@ -47,7 +45,6 @@ function Perfil() {
               }
         axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/usuario/${state.id}`, data, config)
                 .then( (response) => {
-                    console.log(response);
                         const tokenData = decodeToken(localStorage.getItem('token'));
                         const rol = tokenData.role
                         if (rol === "ADMINISTRADOR"){

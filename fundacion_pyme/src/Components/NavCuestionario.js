@@ -38,10 +38,8 @@ class NavCuestionario extends Component {
     var response = await axios.get(`https://obs-pyme-validacion-back.herokuapp.com/api/encuesta/${idEncuesta}`, config);
     const encuestas = response.data;
     this.setState({...this.state, objEncuesta:encuestas[0]});
-    console.log("data: ", this.state.objEncuesta)
      axios.get(`https://obs-pyme-validacion-back.herokuapp.com/api/usuario`, config)
       .then( res => { 
-          console.log(res) 
           const rol = res.data.rol;
           this.setState({...this.state, rol: rol});
         })
@@ -81,7 +79,6 @@ class NavCuestionario extends Component {
               });
         });
       }
-      console.log("Paso 2 revisión: enviable para revisión, ", this.state.encuestaEnviableParaRevision)
       if (this.state.encuestaEnviableParaRevision && this.state.existePreguntaARevisar) {
           if(window.confirm('Desea enviar esta encuesta a revisar?')){
             let config = {
@@ -92,7 +89,6 @@ class NavCuestionario extends Component {
               const data = { status: 'REVISION' }
               axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/encuesta/${this.state.objEncuesta._id}/status`, data, config)
                   .then( response => { 
-                      console.log(response)
                       this.props.history.push('/home');
                     })
                   .catch( error => { console.log(error) })
@@ -134,7 +130,6 @@ class NavCuestionario extends Component {
               const data = { status: 'APROBADA' }
               axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/encuesta/${this.state.objEncuesta._id}/status`, data, config)
                   .then( response => { 
-                      console.log(response);
                       this.props.history.push('/home');
                     } )
                   .catch( error => { console.log(error) })
@@ -156,7 +151,6 @@ class NavCuestionario extends Component {
         }
         axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/encuesta/${this.state.objEncuesta._id}/status`, data, config)
             .then( response => { 
-                console.log(response)
                 this.props.history.push('/home');
                })
             .catch( error => { console.log(error) })
@@ -187,7 +181,6 @@ class NavCuestionario extends Component {
             const data = { status: 'VALIDADA' }
             axios.patch(`https://obs-pyme-validacion-back.herokuapp.com/api/encuesta/${this.state.objEncuesta._id}/status`, data, config)
                 .then( response => { 
-                    console.log(response);
                     this.props.history.push('/home');
                   } )
                 .catch( error => { console.log(error) })
